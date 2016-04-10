@@ -1,0 +1,398 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */; };
+		C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A761CBAD5CD00D97EAD /* ViewController.swift */; };
+		C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A781CBAD5CD00D97EAD /* Document.swift */; };
+		C9F10A7B1CBAD5CD00D97EAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */; };
+		C9F10A7E1CBAD5CD00D97EAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */; };
+		C9F10A891CBAD5CD00D97EAD /* LiteRayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A881CBAD5CD00D97EAD /* LiteRayTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9F10A851CBAD5CD00D97EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F10A691CBAD5CD00D97EAD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9F10A701CBAD5CD00D97EAD;
+			remoteInfo = LiteRay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C9F10A711CBAD5CD00D97EAD /* LiteRay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteRay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C9F10A761CBAD5CD00D97EAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C9F10A781CBAD5CD00D97EAD /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9F10A7D1CBAD5CD00D97EAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C9F10A7F1CBAD5CD00D97EAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9F10A841CBAD5CD00D97EAD /* LiteRayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiteRayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9F10A881CBAD5CD00D97EAD /* LiteRayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteRayTests.swift; sourceTree = "<group>"; };
+		C9F10A8A1CBAD5CD00D97EAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9F10A6E1CBAD5CD00D97EAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F10A811CBAD5CD00D97EAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9F10A681CBAD5CD00D97EAD = {
+			isa = PBXGroup;
+			children = (
+				C9F10A731CBAD5CD00D97EAD /* LiteRay */,
+				C9F10A871CBAD5CD00D97EAD /* LiteRayTests */,
+				C9F10A721CBAD5CD00D97EAD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9F10A721CBAD5CD00D97EAD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9F10A711CBAD5CD00D97EAD /* LiteRay.app */,
+				C9F10A841CBAD5CD00D97EAD /* LiteRayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9F10A731CBAD5CD00D97EAD /* LiteRay */ = {
+			isa = PBXGroup;
+			children = (
+				C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */,
+				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
+				C9F10A781CBAD5CD00D97EAD /* Document.swift */,
+				C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */,
+				C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */,
+				C9F10A7F1CBAD5CD00D97EAD /* Info.plist */,
+			);
+			path = LiteRay;
+			sourceTree = "<group>";
+		};
+		C9F10A871CBAD5CD00D97EAD /* LiteRayTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9F10A881CBAD5CD00D97EAD /* LiteRayTests.swift */,
+				C9F10A8A1CBAD5CD00D97EAD /* Info.plist */,
+			);
+			path = LiteRayTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9F10A701CBAD5CD00D97EAD /* LiteRay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9F10A8D1CBAD5CD00D97EAD /* Build configuration list for PBXNativeTarget "LiteRay" */;
+			buildPhases = (
+				C9F10A6D1CBAD5CD00D97EAD /* Sources */,
+				C9F10A6E1CBAD5CD00D97EAD /* Frameworks */,
+				C9F10A6F1CBAD5CD00D97EAD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiteRay;
+			productName = LiteRay;
+			productReference = C9F10A711CBAD5CD00D97EAD /* LiteRay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9F10A831CBAD5CD00D97EAD /* LiteRayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9F10A901CBAD5CD00D97EAD /* Build configuration list for PBXNativeTarget "LiteRayTests" */;
+			buildPhases = (
+				C9F10A801CBAD5CD00D97EAD /* Sources */,
+				C9F10A811CBAD5CD00D97EAD /* Frameworks */,
+				C9F10A821CBAD5CD00D97EAD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9F10A861CBAD5CD00D97EAD /* PBXTargetDependency */,
+			);
+			name = LiteRayTests;
+			productName = LiteRayTests;
+			productReference = C9F10A841CBAD5CD00D97EAD /* LiteRayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9F10A691CBAD5CD00D97EAD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Matthew Dillard";
+				TargetAttributes = {
+					C9F10A701CBAD5CD00D97EAD = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					C9F10A831CBAD5CD00D97EAD = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = C9F10A701CBAD5CD00D97EAD;
+					};
+				};
+			};
+			buildConfigurationList = C9F10A6C1CBAD5CD00D97EAD /* Build configuration list for PBXProject "LiteRay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C9F10A681CBAD5CD00D97EAD;
+			productRefGroup = C9F10A721CBAD5CD00D97EAD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9F10A701CBAD5CD00D97EAD /* LiteRay */,
+				C9F10A831CBAD5CD00D97EAD /* LiteRayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9F10A6F1CBAD5CD00D97EAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9F10A7B1CBAD5CD00D97EAD /* Assets.xcassets in Resources */,
+				C9F10A7E1CBAD5CD00D97EAD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F10A821CBAD5CD00D97EAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9F10A6D1CBAD5CD00D97EAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */,
+				C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */,
+				C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9F10A801CBAD5CD00D97EAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9F10A891CBAD5CD00D97EAD /* LiteRayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9F10A861CBAD5CD00D97EAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9F10A701CBAD5CD00D97EAD /* LiteRay */;
+			targetProxy = C9F10A851CBAD5CD00D97EAD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9F10A7D1CBAD5CD00D97EAD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9F10A8B1CBAD5CD00D97EAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C9F10A8C1CBAD5CD00D97EAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C9F10A8E1CBAD5CD00D97EAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = LiteRay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = CSCE647.LiteRay;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C9F10A8F1CBAD5CD00D97EAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = LiteRay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = CSCE647.LiteRay;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C9F10A911CBAD5CD00D97EAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = LiteRayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = CSCE647.LiteRayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiteRay.app/Contents/MacOS/LiteRay";
+			};
+			name = Debug;
+		};
+		C9F10A921CBAD5CD00D97EAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = LiteRayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = CSCE647.LiteRayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiteRay.app/Contents/MacOS/LiteRay";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9F10A6C1CBAD5CD00D97EAD /* Build configuration list for PBXProject "LiteRay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9F10A8B1CBAD5CD00D97EAD /* Debug */,
+				C9F10A8C1CBAD5CD00D97EAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9F10A8D1CBAD5CD00D97EAD /* Build configuration list for PBXNativeTarget "LiteRay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9F10A8E1CBAD5CD00D97EAD /* Debug */,
+				C9F10A8F1CBAD5CD00D97EAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C9F10A901CBAD5CD00D97EAD /* Build configuration list for PBXNativeTarget "LiteRayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9F10A911CBAD5CD00D97EAD /* Debug */,
+				C9F10A921CBAD5CD00D97EAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9F10A691CBAD5CD00D97EAD /* Project object */;
+}
