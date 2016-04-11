@@ -36,7 +36,7 @@ class ViewController: NSViewController {
 		let teal = ColorData(ambient: HDRColor(r: 0.05,g: 0.1,b: 0.12), diffuse: HDRColor(r: 0.2,g: 0.5,b: 0.6), specular: HDRColor(r: 0.2,g: 0.5,b: 0.6), shininess: 100.0)
 		let yellow = ColorData(ambient: HDRColor(r: 0.5,g: 0.5,b: 0.1), diffuse: HDRColor(r: 1.0,g: 1.0,b: 0.0), specular: HDRColor(r: 1.0,g: 1.0,b: 0.0), shininess: 5.0)
 		
-		scene.addShape(Sphere(colors: yellow, position: float3(x: 10, y: 0, z: 3), radius: 3)!)
+		scene.addShape(Sphere(colors: ColorData(), position: float3(x: 10, y: 0, z: 3), radius: 3)!)
 		scene.addShape(Sphere(colors: teal, position: float3(x: 10, y: 0, z: 0), radius: 3)!)
 		scene.addShape(Plane(colors: yellow, position: float3(x: 20,y: 0,z: 0), normal: float3(x: -1,y: 0,z: 0)))
 	}

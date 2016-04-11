@@ -66,6 +66,7 @@ public class Camera : NSObject, Translatable {
 		return imageFromRGB32Bitmap(pixels, size: size)
 	}
 	
+	/// Apply random sample AntiAliasing and begin the recursive raytracing process fro each sample
 	private func getPixel(scene: Scene, SSPP: float3, AntiAliasing: UInt, dims: (width: float3, height: float3)) -> HDRColor {
 		var pixel = HDRColor()
 		
@@ -105,10 +106,10 @@ public class Camera : NSObject, Translatable {
 		}
 		
 		// retrieve the shape's colors
-		return getColor(scene, of: closest!, at: ray * zValue, from: -ray.d)
+		return getOpaqueColor(scene, of: closest!, at: ray * zValue, from: -ray.d)
 	}
 	
-	private func getColor(scene: Scene, of shape: Shape, at point: float3, from: float3) -> HDRColor {
+	private func getOpaqueColor(scene: Scene, of shape: Shape, at point: float3, from: float3) -> HDRColor {
 		// color independant of all other lighting conditions
 		let glow = shape.glow
 		
@@ -118,20 +119,20 @@ public class Camera : NSObject, Translatable {
 		var diffuse = HDRColor(), specular = HDRColor()
 		// iterate through all lights in the scene
 		for l  in scene.lights {
+			let surfaceNormal = shape.getNormal(at: point)
 			let directionToLight = l.normalToLight(point)
 			
 			// shadow check
 			if l.illuminated(point) && !obstructed(Ray(o: point, d: directionToLight), on: shape, inScene: scene, from: l) {
-				let shapeNormal = shape.getNormal(at: point)
-				let product = shapeNormal • directionToLight
+				let product = surfaceNormal • directionToLight
 				let offset = (product + shape.offset)/(1 + shape.offset)
 				
 				// color from direct diffuse illumination
 				diffuse += shape.diffuse * l.color * max(offset, 0.0)
 				
 				if product > 0.0 {
-					let halfway = (from + l.normalToLight(point)).unit
-					let specularvalue = shape.getNormal(at: point) • halfway
+					let halfway = (from + directionToLight).unit
+					let specularvalue = surfaceNormal • halfway
 					
 					// color from specular highlights
 					specular += shape.specular * l.color * pow(max(specularvalue, 0.0), shape.shininess);
@@ -142,18 +143,19 @@ public class Camera : NSObject, Translatable {
 		return glow + ambient + diffuse + specular
 	}
 	
+	private func getReflectedColor() -> HDRColor {
+		return HDRColor()
+	}
+	
 	private func obstructed(ray: Ray, on: Shape, inScene: Scene, from: Light) -> Bool {
 		// first get the distance from the surface to the light
 		let distanceToLight = from.distance(ray.o);
 		
 		// then see if any shapes are closer than that
-		for s in inScene.shapes {
-			// we can ignore the original object
-			if s !== on {
-				let intersect = s.intersectRay(ray)
-				if intersect > 0.0 && intersect < distanceToLight {
-					return true;
-				}
+		for s in inScene.shapes where s !== on {
+			let intersect = s.intersectRay(ray)
+			if intersect > 0.0 && intersect < distanceToLight {
+				return true;
 			}
 		}
 		

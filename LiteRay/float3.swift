@@ -11,6 +11,12 @@ import simd
 
 extension float3: Equatable, CustomStringConvertible {
 	
+	init(copy: float3) {
+		self.x = copy.x
+		self.y = copy.y
+		self.z = copy.z
+	}
+	
 	public var description: String { return String(format: "(%.2f, %.2f, %.2f)", x, y, z) }
 	
 	/// Absolute value of a Vector
@@ -43,7 +49,25 @@ public func ⊗(lhs: float3, rhs: float3) -> float3 { return float3(x: lhs.x * r
 
 
 public struct Ray {
-	var o = float3(), d = float3(x: 1, y: 0, z: 0)
+	let o: float3
+	let d: float3
+	
+	init(o: float3 = float3(), d: float3 = float3(x: 1, y: 0, z: 0)) {
+		self.o = o
+		self.d = d.unit
+	}
+	
+	public func reflect(across: Ray) -> Ray {
+		return Ray(o: across.o, d: -2 * (d • across.d) * across.d - d)
+	}
+	
+	public func refract(fromIndex: Float = 1.0, withNormal normal: Ray, toIndex: Float = 1.0, tolerance: Float = 0.001) -> Ray {
+		
+		
+		let origin = float3(copy: normal.o)
+		var direction = float3()
+		return Ray(o: origin + tolerance * direction, d: direction)
+	}
 }
 
 public func *(ray: Ray, dist: Float) -> float3 { return ray.o + dist * ray.d }
