@@ -13,6 +13,19 @@
 		C9F10A7B1CBAD5CD00D97EAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */; };
 		C9F10A7E1CBAD5CD00D97EAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */; };
 		C9F10A891CBAD5CD00D97EAD /* LiteRayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A881CBAD5CD00D97EAD /* LiteRayTests.swift */; };
+		C9F10A9A1CBAD66600D97EAD /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A951CBAD66600D97EAD /* Camera.swift */; };
+		C9F10A9B1CBAD66600D97EAD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A961CBAD66600D97EAD /* Color.swift */; };
+		C9F10A9C1CBAD66600D97EAD /* double3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A971CBAD66600D97EAD /* double3.swift */; };
+		C9F10A9E1CBAD66600D97EAD /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A991CBAD66600D97EAD /* Scene.swift */; };
+		C9F10AA41CBAD67A00D97EAD /* Cylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */; };
+		C9F10AA51CBAD67A00D97EAD /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AA01CBAD67A00D97EAD /* Plane.swift */; };
+		C9F10AA61CBAD67A00D97EAD /* Quadric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AA11CBAD67A00D97EAD /* Quadric.swift */; };
+		C9F10AA71CBAD67A00D97EAD /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AA21CBAD67A00D97EAD /* Shape.swift */; };
+		C9F10AA81CBAD67A00D97EAD /* Sphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AA31CBAD67A00D97EAD /* Sphere.swift */; };
+		C9F10AAD1CBAD68800D97EAD /* DirectLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AA91CBAD68800D97EAD /* DirectLight.swift */; };
+		C9F10AAE1CBAD68800D97EAD /* Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AAA1CBAD68800D97EAD /* Light.swift */; };
+		C9F10AAF1CBAD68800D97EAD /* PointLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AAB1CBAD68800D97EAD /* PointLight.swift */; };
+		C9F10AB01CBAD68800D97EAD /* SpotLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AAC1CBAD68800D97EAD /* SpotLight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +49,19 @@
 		C9F10A841CBAD5CD00D97EAD /* LiteRayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiteRayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F10A881CBAD5CD00D97EAD /* LiteRayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteRayTests.swift; sourceTree = "<group>"; };
 		C9F10A8A1CBAD5CD00D97EAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9F10A951CBAD66600D97EAD /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		C9F10A961CBAD66600D97EAD /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		C9F10A971CBAD66600D97EAD /* double3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = double3.swift; sourceTree = "<group>"; };
+		C9F10A991CBAD66600D97EAD /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cylinder.swift; sourceTree = "<group>"; };
+		C9F10AA01CBAD67A00D97EAD /* Plane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		C9F10AA11CBAD67A00D97EAD /* Quadric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quadric.swift; sourceTree = "<group>"; };
+		C9F10AA21CBAD67A00D97EAD /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		C9F10AA31CBAD67A00D97EAD /* Sphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sphere.swift; sourceTree = "<group>"; };
+		C9F10AA91CBAD68800D97EAD /* DirectLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectLight.swift; sourceTree = "<group>"; };
+		C9F10AAA1CBAD68800D97EAD /* Light.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Light.swift; sourceTree = "<group>"; };
+		C9F10AAB1CBAD68800D97EAD /* PointLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointLight.swift; sourceTree = "<group>"; };
+		C9F10AAC1CBAD68800D97EAD /* SpotLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotLight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +103,15 @@
 		C9F10A731CBAD5CD00D97EAD /* LiteRay */ = {
 			isa = PBXGroup;
 			children = (
+				C9F10A941CBAD60300D97EAD /* Lights */,
+				C9F10A931CBAD5FA00D97EAD /* Shapes */,
 				C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */,
-				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
+				C9F10A951CBAD66600D97EAD /* Camera.swift */,
+				C9F10A961CBAD66600D97EAD /* Color.swift */,
 				C9F10A781CBAD5CD00D97EAD /* Document.swift */,
+				C9F10A971CBAD66600D97EAD /* double3.swift */,
+				C9F10A991CBAD66600D97EAD /* Scene.swift */,
+				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
 				C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */,
 				C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */,
 				C9F10A7F1CBAD5CD00D97EAD /* Info.plist */,
@@ -94,6 +126,29 @@
 				C9F10A8A1CBAD5CD00D97EAD /* Info.plist */,
 			);
 			path = LiteRayTests;
+			sourceTree = "<group>";
+		};
+		C9F10A931CBAD5FA00D97EAD /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */,
+				C9F10AA01CBAD67A00D97EAD /* Plane.swift */,
+				C9F10AA11CBAD67A00D97EAD /* Quadric.swift */,
+				C9F10AA21CBAD67A00D97EAD /* Shape.swift */,
+				C9F10AA31CBAD67A00D97EAD /* Sphere.swift */,
+			);
+			name = Shapes;
+			sourceTree = "<group>";
+		};
+		C9F10A941CBAD60300D97EAD /* Lights */ = {
+			isa = PBXGroup;
+			children = (
+				C9F10AA91CBAD68800D97EAD /* DirectLight.swift */,
+				C9F10AAA1CBAD68800D97EAD /* Light.swift */,
+				C9F10AAB1CBAD68800D97EAD /* PointLight.swift */,
+				C9F10AAC1CBAD68800D97EAD /* SpotLight.swift */,
+			);
+			name = Lights;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,8 +251,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F10A9C1CBAD66600D97EAD /* double3.swift in Sources */,
+				C9F10AAD1CBAD68800D97EAD /* DirectLight.swift in Sources */,
+				C9F10A9A1CBAD66600D97EAD /* Camera.swift in Sources */,
+				C9F10AA51CBAD67A00D97EAD /* Plane.swift in Sources */,
 				C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */,
 				C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */,
+				C9F10AB01CBAD68800D97EAD /* SpotLight.swift in Sources */,
+				C9F10AAE1CBAD68800D97EAD /* Light.swift in Sources */,
+				C9F10A9E1CBAD66600D97EAD /* Scene.swift in Sources */,
+				C9F10A9B1CBAD66600D97EAD /* Color.swift in Sources */,
+				C9F10AA71CBAD67A00D97EAD /* Shape.swift in Sources */,
+				C9F10AA81CBAD67A00D97EAD /* Sphere.swift in Sources */,
+				C9F10AA61CBAD67A00D97EAD /* Quadric.swift in Sources */,
+				C9F10AAF1CBAD68800D97EAD /* PointLight.swift in Sources */,
+				C9F10AA41CBAD67A00D97EAD /* Cylinder.swift in Sources */,
 				C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
