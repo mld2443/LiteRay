@@ -1,6 +1,6 @@
 //
 //  Color.swift
-//  Trace
+//  LiteRay
 //
 //  Created by Matthew Dillard on 3/17/16.
 //  Copyright © 2016 Matthew Dillard. All rights reserved.
@@ -8,26 +8,18 @@
 
 import Cocoa
 
-/// A compound and descriptive color class that holds the following:
-/// - Ambient color
-/// - Diffuse color
-/// - Diffuse offset
-/// - Specular color
-/// - Shininess exponent
-/// - glow color
-public struct ColorData {
-	var ambient = HDRColor()
-	var diffuse = HDRColor.whiteColor()
-	var offset = 0.0
-	var specular = HDRColor()
-	var shininess = 0.0
-	var glow = HDRColor()
-	var opacity = 1.0
-}
-
-
+/// A floating point based Color struct with the ability to hold values
+/// above or below the thresholds of on or off.
 public struct HDRColor : Equatable, CustomStringConvertible {
-	var r = 0.0, g = 0.0, b = 0.0
+	var r: Float
+	var g: Float
+	var b: Float
+	
+	init(r: Float = 0.0, g: Float = 0.0, b: Float = 0.0) {
+		self.r = r
+		self.g = g
+		self.b = b
+	}
 	
 	public var description: String {
 		let red₁₆ = String(format:"%2X", r)
@@ -47,17 +39,54 @@ public struct HDRColor : Equatable, CustomStringConvertible {
 	static func cyanColor() -> HDRColor { return HDRColor(r: 0, g: 1, b: 1) }
 }
 
-public func *(lhs: Double, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs * rhs.r, g: lhs * rhs.g, b: lhs * rhs.b) }
-public func *(lhs: HDRColor, rhs: Double) -> HDRColor { return HDRColor(r: lhs.r * rhs, g: lhs.g * rhs, b: lhs.b * rhs) }
-public func /(lhs: HDRColor, rhs: Double) -> HDRColor { return HDRColor(r: lhs.r / rhs, g: lhs.g / rhs, b: lhs.b / rhs) }
+public func *(lhs: Float, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs * rhs.r, g: lhs * rhs.g, b: lhs * rhs.b) }
+public func *(lhs: HDRColor, rhs: Float) -> HDRColor { return HDRColor(r: lhs.r * rhs, g: lhs.g * rhs, b: lhs.b * rhs) }
+public func /(lhs: HDRColor, rhs: Float) -> HDRColor { return HDRColor(r: lhs.r / rhs, g: lhs.g / rhs, b: lhs.b / rhs) }
 public func *(lhs: HDRColor, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs.r * rhs.r, g: lhs.g * rhs.g, b: lhs.b * rhs.b) }
 public func +(lhs: HDRColor, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs.r + rhs.r, g: lhs.g + rhs.g, b: lhs.b + rhs.b) }
 
-public func *=(inout lhs: HDRColor, rhs: Double) -> HDRColor { lhs.r *= rhs; lhs.g *= rhs; lhs.b *= rhs; return lhs }
+public func *=(inout lhs: HDRColor, rhs: Float) -> HDRColor { lhs.r *= rhs; lhs.g *= rhs; lhs.b *= rhs; return lhs }
 public func *=(inout lhs: HDRColor, rhs: HDRColor) -> HDRColor { lhs.r *= rhs.r; lhs.g *= rhs.g; lhs.b *= rhs.b; return lhs }
 public func +=(inout lhs: HDRColor, rhs: HDRColor) -> HDRColor { lhs.r += rhs.r; lhs.g += rhs.g; lhs.b += rhs.b; return lhs }
 
 public func ==(lhs: HDRColor, rhs: HDRColor) -> Bool { return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b }
+
+
+/// A compound and descriptive color class that holds the following:
+/// - Ambient color
+/// - Diffuse color
+/// - Diffuse offset
+/// - Specular color
+/// - Shininess exponent
+/// - glow color
+public struct ColorData {
+	public var ambient: HDRColor
+	public var diffuse: HDRColor
+	public var offset: Float
+	public var specular: HDRColor
+	public var shininess: Float
+	public var glow: HDRColor
+	public var opacity: Float
+	public var reflectivity: Float
+	
+	init(ambient: HDRColor = HDRColor.blackColor(),
+	     diffuse: HDRColor = HDRColor.whiteColor(),
+	     offset: Float = 0.0,
+	     specular: HDRColor = HDRColor.blackColor(),
+	     shininess: Float = 0.0,
+	     glow: HDRColor = HDRColor.blackColor(),
+	     opacity: Float = 1.0,
+	     reflectivity: Float = 0.0) {
+		self.ambient = ambient
+		self.diffuse = diffuse
+		self.offset = offset
+		self.specular = specular
+		self.shininess = shininess
+		self.glow = glow
+		self.opacity = opacity
+		self.reflectivity = reflectivity
+	}
+}
 
 
 public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {

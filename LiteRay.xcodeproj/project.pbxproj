@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C919DCA11CBBE54C004CDA87 /* float3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919DCA01CBBE54C004CDA87 /* float3.swift */; };
 		C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */; };
 		C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A761CBAD5CD00D97EAD /* ViewController.swift */; };
 		C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A781CBAD5CD00D97EAD /* Document.swift */; };
@@ -15,7 +16,6 @@
 		C9F10A891CBAD5CD00D97EAD /* LiteRayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A881CBAD5CD00D97EAD /* LiteRayTests.swift */; };
 		C9F10A9A1CBAD66600D97EAD /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A951CBAD66600D97EAD /* Camera.swift */; };
 		C9F10A9B1CBAD66600D97EAD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A961CBAD66600D97EAD /* Color.swift */; };
-		C9F10A9C1CBAD66600D97EAD /* double3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A971CBAD66600D97EAD /* double3.swift */; };
 		C9F10A9E1CBAD66600D97EAD /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A991CBAD66600D97EAD /* Scene.swift */; };
 		C9F10AA41CBAD67A00D97EAD /* Cylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */; };
 		C9F10AA51CBAD67A00D97EAD /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10AA01CBAD67A00D97EAD /* Plane.swift */; };
@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C919DCA01CBBE54C004CDA87 /* float3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = float3.swift; sourceTree = "<group>"; };
 		C9F10A711CBAD5CD00D97EAD /* LiteRay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteRay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9F10A761CBAD5CD00D97EAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +52,6 @@
 		C9F10A8A1CBAD5CD00D97EAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9F10A951CBAD66600D97EAD /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		C9F10A961CBAD66600D97EAD /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		C9F10A971CBAD66600D97EAD /* double3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = double3.swift; sourceTree = "<group>"; };
 		C9F10A991CBAD66600D97EAD /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cylinder.swift; sourceTree = "<group>"; };
 		C9F10AA01CBAD67A00D97EAD /* Plane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 				C9F10A951CBAD66600D97EAD /* Camera.swift */,
 				C9F10A961CBAD66600D97EAD /* Color.swift */,
 				C9F10A781CBAD5CD00D97EAD /* Document.swift */,
-				C9F10A971CBAD66600D97EAD /* double3.swift */,
+				C919DCA01CBBE54C004CDA87 /* float3.swift */,
 				C9F10A991CBAD66600D97EAD /* Scene.swift */,
 				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
 				C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */,
@@ -201,6 +201,7 @@
 				TargetAttributes = {
 					C9F10A701CBAD5CD00D97EAD = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 9A2ZMRR685;
 					};
 					C9F10A831CBAD5CD00D97EAD = {
 						CreatedOnToolsVersion = 7.3;
@@ -251,7 +252,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9F10A9C1CBAD66600D97EAD /* double3.swift in Sources */,
 				C9F10AAD1CBAD68800D97EAD /* DirectLight.swift in Sources */,
 				C9F10A9A1CBAD66600D97EAD /* Camera.swift in Sources */,
 				C9F10AA51CBAD67A00D97EAD /* Plane.swift in Sources */,
@@ -267,6 +267,7 @@
 				C9F10AAF1CBAD68800D97EAD /* PointLight.swift in Sources */,
 				C9F10AA41CBAD67A00D97EAD /* Cylinder.swift in Sources */,
 				C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */,
+				C919DCA11CBBE54C004CDA87 /* float3.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,11 +387,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = LiteRay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSCE647.LiteRay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -398,11 +402,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = LiteRay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CSCE647.LiteRay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -451,6 +458,7 @@
 				C9F10A8F1CBAD5CD00D97EAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9F10A901CBAD5CD00D97EAD /* Build configuration list for PBXNativeTarget "LiteRayTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +467,7 @@
 				C9F10A921CBAD5CD00D97EAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
