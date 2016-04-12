@@ -1,6 +1,6 @@
 //
 //  Scene.swift
-//  Trace
+//  LiteRay
 //
 //  Created by Matthew Dillard on 3/12/16.
 //  Copyright © 2016 Matthew Dillard. All rights reserved.
