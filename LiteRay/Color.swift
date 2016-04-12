@@ -11,9 +11,9 @@ import Cocoa
 /// A floating point based Color struct with the ability to hold values
 /// above or below the thresholds of on or off.
 public struct HDRColor : Equatable, CustomStringConvertible {
-	var r: Float
-	var g: Float
-	var b: Float
+	let r: Float
+	let g: Float
+	let b: Float
 	
 	init(r: Float = 0.0, g: Float = 0.0, b: Float = 0.0) {
 		self.r = r
@@ -45,9 +45,9 @@ public func /(lhs: HDRColor, rhs: Float) -> HDRColor { return HDRColor(r: lhs.r 
 public func *(lhs: HDRColor, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs.r * rhs.r, g: lhs.g * rhs.g, b: lhs.b * rhs.b) }
 public func +(lhs: HDRColor, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs.r + rhs.r, g: lhs.g + rhs.g, b: lhs.b + rhs.b) }
 
-public func *=(inout lhs: HDRColor, rhs: Float) -> HDRColor { lhs.r *= rhs; lhs.g *= rhs; lhs.b *= rhs; return lhs }
-public func *=(inout lhs: HDRColor, rhs: HDRColor) -> HDRColor { lhs.r *= rhs.r; lhs.g *= rhs.g; lhs.b *= rhs.b; return lhs }
-public func +=(inout lhs: HDRColor, rhs: HDRColor) -> HDRColor { lhs.r += rhs.r; lhs.g += rhs.g; lhs.b += rhs.b; return lhs }
+//public func *=(inout lhs: HDRColor, rhs: Float) -> HDRColor { lhs.r *= rhs; lhs.g *= rhs; lhs.b *= rhs; return lhs }
+//public func *=(inout lhs: HDRColor, rhs: HDRColor) -> HDRColor { lhs.r *= rhs.r; lhs.g *= rhs.g; lhs.b *= rhs.b; return lhs }
+//public func +=(inout lhs: HDRColor, rhs: HDRColor) -> HDRColor { lhs.r += rhs.r; lhs.g += rhs.g; lhs.b += rhs.b; return lhs }
 
 public func ==(lhs: HDRColor, rhs: HDRColor) -> Bool { return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b }
 
@@ -88,7 +88,7 @@ public struct ColorData {
 	}
 }
 
-
+// FIXME: This function needs to be replaced, it's the cause of all the color problems
 public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {
 	let bitsPerComponent = 8
 	let bitsPerPixel = 32
@@ -109,9 +109,7 @@ public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {
 		return argb(a: alpha, r: red, g: green, b: blue)
 	}
 	
-	let providerRef = CGDataProviderCreateWithCFData(
-		NSData(bytes: &data, length: data.count * sizeof(argb))
-	)
+	let providerRef = CGDataProviderCreateWithCFData(NSData(bytes: &data, length: data.count * sizeof(argb)))
 	
 	let cgim = CGImageCreate(
 		Int(size.width),
@@ -126,5 +124,6 @@ public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {
 		true,
 		CGColorRenderingIntent.RenderingIntentDefault
 	)
+	
 	return NSImage(CGImage: cgim!, size: NSZeroSize)
 }

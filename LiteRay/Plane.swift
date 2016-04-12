@@ -25,8 +25,8 @@ public class Plane : Shape {
 			return normalVector
 		}
 		set {
-			normalVector = newValue
-			EQconstant = newValue • position
+			normalVector = newValue.unit
+			EQconstant = normalVector • position
 		}
 	}
 	

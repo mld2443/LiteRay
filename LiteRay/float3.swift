@@ -11,12 +11,6 @@ import simd
 
 extension float3: Equatable, CustomStringConvertible {
 	
-	init(copy: float3) {
-		self.x = copy.x
-		self.y = copy.y
-		self.z = copy.z
-	}
-	
 	public var description: String { return String(format: "(%.2f, %.2f, %.2f)", x, y, z) }
 	
 	/// Absolute value of a Vector
@@ -57,20 +51,19 @@ public struct Ray {
 		self.d = d.unit
 	}
 	
-	public func reflect(across: Ray) -> Ray {
-		return Ray(o: across.o, d: -2 * (d • across.d) * across.d - d)
+	public func reflect(across: Ray, tolerance: Float = 0.0001) -> Ray {
+		return Ray(o: across.o, d: -2 * (d • across.d) * across.d - d) * tolerance
 	}
 	
-	public func refract(fromIndex: Float = 1.0, withNormal normal: Ray, toIndex: Float = 1.0, tolerance: Float = 0.001) -> Ray {
-		
-		
-		let origin = float3(copy: normal.o)
-		var direction = float3()
-		return Ray(o: origin + tolerance * direction, d: direction)
+	public func refract(fromIndex: Float = 1.0, withNormal normal: Ray, toIndex: Float = 1.0, tolerance: Float = 0.0001) -> Ray {
+		let direction = float3()
+		let origin = normal.o + tolerance * direction
+		return Ray(o: origin, d: direction)
 	}
 }
 
-public func *(ray: Ray, dist: Float) -> float3 { return ray.o + dist * ray.d }
+public func *(ray: Ray, dist: Float) -> Ray { return Ray(o: ray.o + dist * ray.d, d: ray.d) }
+public func *(dist: Float, ray: Ray) -> Ray { return Ray(o: ray.o + dist * ray.d, d: ray.d) }
 
 
 public protocol Translatable {

@@ -16,7 +16,7 @@ public class Camera : NSObject, Translatable {
 	var upDirection: float3
 	var FOV: Float
 	
-	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:1,y:0,z:0), FOV: Float = 90.0, nearClip near:Float = 1.0, farClip far:Float = 1000.0, upDir:float3 = float3(x:0,y:1,z:0)) {
+	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:0,y:0,z:1), FOV: Float = 90.0, nearClip near:Float = 1.0, farClip far:Float = 1000.0, upDir:float3 = float3(x:0,y:1,z:0)) {
 		position = pos
 		lookDirection = lookDir.unit
 		self.FOV = FOV
@@ -68,7 +68,7 @@ public class Camera : NSObject, Translatable {
 	
 	/// Apply random sample AntiAliasing and begin the recursive raytracing process fro each sample
 	private func getPixel(scene: Scene, SSPP: float3, AntiAliasing: UInt, dims: (width: float3, height: float3)) -> HDRColor {
-		var pixel = HDRColor()
+		var pixel = HDRColor.blackColor()
 		
 		// collect samples of the scene for this current pixel
 		for _ in 0...AntiAliasing {
@@ -80,7 +80,7 @@ public class Camera : NSObject, Translatable {
 			let subsample = SSPP + (dims.width * horiOffset) + (dims.height * vertOffset)
 			let ray = Ray(o: position, d: (subsample - position).unit)
 			
-			pixel += trace(ray, scene: scene, step: 0, maxDepth: 5)
+			pixel = pixel + trace(ray, scene: scene, step: 0, maxDepth: 5)
 		}
 		
 		// return the normalized supersampled value
@@ -101,12 +101,24 @@ public class Camera : NSObject, Translatable {
 		}
 		
 		// Stop in case we find no collision
-		guard closest != nil else {
+		guard let shape = closest else {
 			return HDRColor.blackColor()
 		}
 		
+		let point = (ray * zValue).o
+		
 		// retrieve the shape's colors
-		return getOpaqueColor(scene, of: closest!, at: ray * zValue, from: -ray.d)
+		if step < maxDepth  && shape.reflectivity > 0.0 {
+			let opaqueColor = (shape.opacity - shape.reflectivity) * getOpaqueColor(scene, of: shape, at: point, from: -ray.d)
+			let reflectColor = shape.reflectivity * getReflectedColor(scene, of: shape, at: point, from: ray, step: step, maxDepth: maxDepth)
+			
+			return opaqueColor + reflectColor
+		}
+		else {
+			let opaqueColor = getOpaqueColor(scene, of: shape, at: point, from: -ray.d)
+			
+			return opaqueColor
+		}
 	}
 	
 	private func getOpaqueColor(scene: Scene, of shape: Shape, at point: float3, from: float3) -> HDRColor {
@@ -128,14 +140,14 @@ public class Camera : NSObject, Translatable {
 				let offset = (product + shape.offset)/(1 + shape.offset)
 				
 				// color from direct diffuse illumination
-				diffuse += shape.diffuse * l.color * max(offset, 0.0)
+				diffuse = diffuse + shape.diffuse * l.color * max(offset, 0.0)
 				
 				if product > 0.0 {
 					let halfway = (from + directionToLight).unit
 					let specularvalue = surfaceNormal • halfway
 					
 					// color from specular highlights
-					specular += shape.specular * l.color * pow(max(specularvalue, 0.0), shape.shininess);
+					specular = specular + shape.specular * l.color * pow(max(specularvalue, 0.0), shape.shininess);
 				}
 			}
 		}
@@ -143,8 +155,10 @@ public class Camera : NSObject, Translatable {
 		return glow + ambient + diffuse + specular
 	}
 	
-	private func getReflectedColor() -> HDRColor {
-		return HDRColor()
+	private func getReflectedColor(scene:Scene, of ignore: Shape, at point: float3, from: Ray, step: UInt, maxDepth: UInt) -> HDRColor {
+		let normalRay = Ray(o: point, d: ignore.getNormal(at: point))
+		
+		return trace(from.reflect(normalRay), scene: scene, step: step + 1, maxDepth: maxDepth)
 	}
 	
 	private func obstructed(ray: Ray, on: Shape, inScene: Scene, from: Light) -> Bool {
