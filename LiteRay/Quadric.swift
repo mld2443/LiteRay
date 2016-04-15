@@ -35,7 +35,7 @@ public struct Equation {
 }
 
 /// Quadric shape, describes 2nd degree polynomial surfaces
-public class Quadric : Shape {
+public class Quadric : ShapeType {
 	public var colors: ColorData
 	public var position: float3
 	public var refrIndex: Float

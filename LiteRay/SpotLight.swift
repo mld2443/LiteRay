@@ -10,7 +10,7 @@ import Foundation
 import simd
 
 /// Spotlights emanate light from a source in a cone
-public class SpotLight : Light, Translatable {
+public class SpotLight : Light{
 	public var color: HDRColor
 	public var position: float3
 	var direction: float3

@@ -9,7 +9,7 @@
 import Cocoa
 import simd
 
-public class Camera : NSObject, Translatable {
+public class Camera : NSObject {
 	public var position: float3
 	var frustrum: (near: Float, far: Float)
 	var lookDirection: float3
@@ -28,7 +28,8 @@ public class Camera : NSObject, Translatable {
 	/// Preview the screen space, should disable
 	/// AntiAliasing and a few other techniques.
 	public func preview(scene: Scene, size: NSSize) -> NSImage {
-		return capture(scene, size: size, AntiAliasing: 1)
+		//return capture(scene, size: size, AntiAliasing: 1)
+		return NSImage(named: "dogface")!
 	}
 	
 	/// Because of the way `imageFromRGB32Bitmap(pixels, size: size)`

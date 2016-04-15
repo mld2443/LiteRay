@@ -12,7 +12,7 @@ import simd
 /// Plane shape
 ///
 /// The simplest of all shapes
-public class Plane : Shape {
+public class Plane : ShapeType {
 	public var colors: ColorData
 	public var position: float3
 	public var refrIndex: Float

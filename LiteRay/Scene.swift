@@ -10,7 +10,7 @@ import Cocoa
 
 public class Scene : NSObject, BooleanType {
 	var ambient = HDRColor.blackColor()
-	var camera: Camera?
+	var cameras = [Camera]()
 	var lights = [Light]()
 	var shapes = [Shape]()
 	
@@ -19,10 +19,13 @@ public class Scene : NSObject, BooleanType {
 		super.init()
 	}
 	
-	public func addLight(newLight: Light) { lights.append(newLight) }
-	public func addShape(newShape: Shape) { shapes.append(newShape) }
+	public func add(newLight: Light) { lights.append(newLight) }
+	public func add(newShape: Shape) { shapes.append(newShape) }
+	public func add(newCamera: Camera) { cameras.append(newCamera) }
 	
 	public var boolValue: Bool {
-		return camera != nil && shapes.count > 0 && (ambient != HDRColor.blackColor() || lights.count > 0)
+		return cameras.count != 0 && shapes.count > 0 && (ambient != HDRColor.blackColor() || lights.count > 0)
 	}
+	
+	
 }

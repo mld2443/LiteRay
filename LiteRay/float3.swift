@@ -35,9 +35,9 @@ infix operator ⨯ { associativity left precedence 150 }
 infix operator ⊗ { associativity left precedence 150 }
 
 /// Dot product of two vectors
-public func •(lhs: float3, rhs: float3) -> Float { return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z }
+public func •(lhs: float3, rhs: float3) -> Float { return dot(lhs, rhs) }
 /// Cross product of two vectors
-public func ⨯(lhs: float3, rhs: float3) -> float3 { return float3(x: lhs.y * rhs.z - lhs.z * rhs.y, y: lhs.z * rhs.x - lhs.x * rhs.z, z: lhs.x * rhs.y - lhs.y * rhs.x) }
+public func ⨯(lhs: float3, rhs: float3) -> float3 { return cross(lhs, rhs) }
 /// Inline product of two vectors
 public func ⊗(lhs: float3, rhs: float3) -> float3 { return float3(x: lhs.x * rhs.x, y: lhs.y * rhs.y, z: lhs.z * rhs.z) }
 
@@ -64,14 +64,3 @@ public struct Ray {
 
 public func *(ray: Ray, dist: Float) -> Ray { return Ray(o: ray.o + dist * ray.d, d: ray.d) }
 public func *(dist: Float, ray: Ray) -> Ray { return Ray(o: ray.o + dist * ray.d, d: ray.d) }
-
-
-public protocol Translatable {
-	var position: float3 { get set }
-}
-
-public extension Translatable {
-	public mutating func translate(x: Float, _ y: Float, _ z: Float) {
-		position += float3(x: x, y: y, z: z)
-	}
-}

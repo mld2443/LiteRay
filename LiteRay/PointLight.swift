@@ -10,7 +10,7 @@ import Foundation
 import simd
 
 /// Point light, all light emanates outward from one point
-public class PointLight : Light, Translatable {
+public class PointLight : Light {
 	public var color: HDRColor
 	public var position: float3
 	

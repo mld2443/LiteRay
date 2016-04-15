@@ -9,17 +9,25 @@
 import Cocoa
 import simd
 
-public protocol Shape : class, Translatable {
-	var colors: ColorData { get set }
+public protocol Shape : class {
 	var position: float3 { get set }
-	var refrIndex: Float { get set }
 	
-	func getNormal(at point: float3) -> float3
-	
-	func intersectRay(ray: Ray) -> Float
 }
 
 public extension Shape {
+	
+}
+
+
+public protocol ShapeType : Shape {
+	var colors: ColorData { get set }
+	var refrIndex: Float { get set }
+	
+	func getNormal(at point: float3) -> float3
+	func intersectRay(ray: Ray) -> Float
+}
+
+public extension ShapeType {
 	public var ambient: HDRColor { return colors.ambient }
 	public var diffuse: HDRColor { return colors.diffuse }
 	public var offset: Float { return colors.offset }
