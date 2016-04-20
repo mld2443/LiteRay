@@ -15,7 +15,7 @@ public class Camera : NSObject {
 	var lookDirection: float3
 	var upDirection: float3
 	var FOV: Float
-	var showNormal = true
+	var showNormal = false
 	
 	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:0,y:0,z:1), FOV: Float = 90.0, nearClip near:Float = 1.0, farClip far:Float = 1000.0, upDir:float3 = float3(x:0,y:1,z:0)) {
 		position = pos
@@ -30,7 +30,6 @@ public class Camera : NSObject {
 	/// AntiAliasing and a few other techniques.
 	public func preview(scene: Scene, size: NSSize) -> NSImage {
 		return capture(scene, size: size, AntiAliasing: 1)
-		//return NSImage(named: "dogface")!
 	}
 	
 	/// Because of the way `imageFromRGB32Bitmap(pixels, size: size)`
@@ -114,18 +113,24 @@ public class Camera : NSObject {
 			return color
 		}
 		
+		var refractColor = HDRColor()
+		var reflectColor = HDRColor()
+		var opaqueColor = HDRColor()
+		
 		// retrieve the shape's colors
-		if step < maxDepth  && intersect.material.reflectivity > 0.0 {
-			let opaqueColor = (intersect.material.opacity - intersect.material.reflectivity) * getOpaqueColor(scene, at: intersect, from: -ray.d)
-			let reflectColor = intersect.material.reflectivity * getReflectedColor(scene, at: intersect, from: ray, step: step, maxDepth: maxDepth)
-			
-			return opaqueColor + reflectColor
+		if step < maxDepth  && intersect.material.opacity < 1.0 {
+			refractColor = (1.0 - intersect.material.opacity) * getRefractedColor(scene, at: intersect, from: ray, step: step, maxDepth: maxDepth)
 		}
-		else {
-			let opaqueColor = getOpaqueColor(scene, at: intersect, from: -ray.d)
-			
-			return opaqueColor
+		
+		if intersect.material.reflectivity > 0.0 {
+			reflectColor = intersect.material.reflectivity * getReflectedColor(scene, at: intersect, from: ray, step: step, maxDepth: maxDepth)
 		}
+		
+		if intersect.material.opacity > 0.0 && intersect.material.reflectivity < 1.0 {
+			opaqueColor = getOpaqueColor(scene, at: intersect, from: -ray.d)
+		}
+		
+		return opaqueColor + refractColor + reflectColor
 	}
 	
 	private func getOpaqueColor(scene: Scene, at intersect: Intersection, from: float3) -> HDRColor {
@@ -167,7 +172,21 @@ public class Camera : NSObject {
 		return trace(from.reflect(normalRay), scene: scene, step: step + 1, maxDepth: maxDepth)
 	}
 	
-	private func obstructed(inRay: Ray, inScene: Scene, from: Light, tolerance: Float = 0.001) -> Bool {
+	private func getRefractedColor(scene:Scene, at intersect: Intersection, from: Ray, step: UInt, maxDepth: UInt) -> HDRColor {
+		let normalRay = Ray(o: intersect.point, d: intersect.norm)
+		
+		var eta: Float
+		
+		if intersect.norm • from.d > 0.0{
+			eta = intersect.material.refrIndex / scene.refrIndex
+		} else {
+			eta = scene.refrIndex / intersect.material.refrIndex
+		}
+		
+		return trace(from.refract(normalRay, η: eta), scene: scene, step: step + 1, maxDepth: maxDepth)
+	}
+	
+	private func obstructed(inRay: Ray, inScene: Scene, from: Light, tolerance: Float = 0.0001) -> Bool {
 		// small tolerance to avoid hitting the surface we want to check for shadows
 		let ray = inRay * tolerance
 		

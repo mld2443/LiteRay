@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C90A4D551CC0693300CC437E /* scene.dtd in Resources */ = {isa = PBXBuildFile; fileRef = C90A4D541CC0693300CC437E /* scene.dtd */; };
 		C90A4D571CC06B4400CC437E /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90A4D561CC06B4400CC437E /* Group.swift */; };
 		C90A4D591CC06EA100CC437E /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90A4D581CC06EA100CC437E /* Quaternion.swift */; };
 		C919DCA11CBBE54C004CDA87 /* float3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C919DCA01CBBE54C004CDA87 /* float3.swift */; };
@@ -42,12 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C90A4D4D1CC0354600CC437E /* test2.scene */ = {isa = PBXFileReference; lastKnownFileType = text; path = test2.scene; sourceTree = "<group>"; };
 		C90A4D4E1CC0354600CC437E /* test1.scene */ = {isa = PBXFileReference; lastKnownFileType = text; path = test1.scene; sourceTree = "<group>"; };
-		C90A4D4F1CC0354600CC437E /* checkstyle.scene */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = checkstyle.scene; sourceTree = "<group>"; };
-		C90A4D501CC0354600CC437E /* example.scene */ = {isa = PBXFileReference; lastKnownFileType = text; path = example.scene; sourceTree = "<group>"; };
-		C90A4D511CC0354600CC437E /* example2.scene */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = example2.scene; sourceTree = "<group>"; };
-		C90A4D541CC0693300CC437E /* scene.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = scene.dtd; sourceTree = "<group>"; };
 		C90A4D561CC06B4400CC437E /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C90A4D581CC06EA100CC437E /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quaternion.swift; sourceTree = "<group>"; };
 		C919DCA01CBBE54C004CDA87 /* float3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = float3.swift; sourceTree = "<group>"; };
@@ -73,6 +67,7 @@
 		C9F10AAA1CBAD68800D97EAD /* Light.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Light.swift; sourceTree = "<group>"; };
 		C9F10AAB1CBAD68800D97EAD /* PointLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointLight.swift; sourceTree = "<group>"; };
 		C9F10AAC1CBAD68800D97EAD /* SpotLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotLight.swift; sourceTree = "<group>"; };
+		C9FEA8641CC58D12007816CB /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,11 +91,8 @@
 		C9F10A681CBAD5CD00D97EAD = {
 			isa = PBXGroup;
 			children = (
-				C90A4D4D1CC0354600CC437E /* test2.scene */,
+				C9FEA8641CC58D12007816CB /* MyPlayground.playground */,
 				C90A4D4E1CC0354600CC437E /* test1.scene */,
-				C90A4D4F1CC0354600CC437E /* checkstyle.scene */,
-				C90A4D501CC0354600CC437E /* example.scene */,
-				C90A4D511CC0354600CC437E /* example2.scene */,
 				C9F10A731CBAD5CD00D97EAD /* LiteRay */,
 				C9F10A871CBAD5CD00D97EAD /* LiteRayTests */,
 				C9F10A721CBAD5CD00D97EAD /* Products */,
@@ -121,17 +113,14 @@
 			children = (
 				C9F10A941CBAD60300D97EAD /* Lights */,
 				C9F10A931CBAD5FA00D97EAD /* Shapes */,
+				C9FEA8631CC19BEF007816CB /* Utility */,
 				C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */,
 				C9F10A951CBAD66600D97EAD /* Camera.swift */,
-				C9F10A961CBAD66600D97EAD /* Color.swift */,
 				C9F10A781CBAD5CD00D97EAD /* Document.swift */,
-				C90A4D581CC06EA100CC437E /* Quaternion.swift */,
-				C919DCA01CBBE54C004CDA87 /* float3.swift */,
-				C9F10A991CBAD66600D97EAD /* Scene.swift */,
 				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
+				C9F10A991CBAD66600D97EAD /* Scene.swift */,
 				C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */,
 				C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */,
-				C90A4D541CC0693300CC437E /* scene.dtd */,
 				C9F10A7F1CBAD5CD00D97EAD /* Info.plist */,
 			);
 			path = LiteRay;
@@ -151,10 +140,10 @@
 			children = (
 				C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */,
 				C9F10AA01CBAD67A00D97EAD /* Plane.swift */,
-				C9F10AA11CBAD67A00D97EAD /* Quadric.swift */,
 				C9F10AA21CBAD67A00D97EAD /* Shape.swift */,
 				C9F10AA31CBAD67A00D97EAD /* Sphere.swift */,
 				C90A4D561CC06B4400CC437E /* Group.swift */,
+				C9F10AA11CBAD67A00D97EAD /* Quadric.swift */,
 			);
 			name = Shapes;
 			sourceTree = "<group>";
@@ -168,6 +157,16 @@
 				C9F10AAC1CBAD68800D97EAD /* SpotLight.swift */,
 			);
 			name = Lights;
+			sourceTree = "<group>";
+		};
+		C9FEA8631CC19BEF007816CB /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C9F10A961CBAD66600D97EAD /* Color.swift */,
+				C919DCA01CBBE54C004CDA87 /* float3.swift */,
+				C90A4D581CC06EA100CC437E /* Quaternion.swift */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,7 +252,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F10A7B1CBAD5CD00D97EAD /* Assets.xcassets in Resources */,
-				C90A4D551CC0693300CC437E /* scene.dtd in Resources */,
 				C9F10A7E1CBAD5CD00D97EAD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

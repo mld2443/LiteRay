@@ -22,7 +22,7 @@ public struct Equation {
 	let G: Float, H: Float, I: Float
 	let J: Float
 	
-	init(A: Float = 0.0, B: Float = 0.0, C: Float = 0.0, D: Float = 0.0, E: Float = 0.0, F: Float = 0.0, G: Float = 0.0, H: Float = 0.0, I: Float = 0.0, J: Float = 0.0) {
+	public init(A: Float = 0.0, B: Float = 0.0, C: Float = 0.0, D: Float = 0.0, E: Float = 0.0, F: Float = 0.0, G: Float = 0.0, H: Float = 0.0, I: Float = 0.0, J: Float = 0.0) {
 		self.A = A; self.B = B; self.C = C
 		self.D = D; self.E = E; self.F = F
 		self.G = G; self.H = H; self.I = I
@@ -70,12 +70,12 @@ public class Quadric : Shape {
 		let rRay = ray.d;
 		
 		// Precalculate these values for our quadratic equation
-		let V1 = rRay ⊗ rRay
+		let V1 = rRay * rRay
 		let V2 = 2 * float3(x: rRay.x * rRay.y, y: rRay.y * rRay.z, z: rRay.x * rRay.z)
-		let V3 = rCam ⊗ rRay
+		let V3 = rCam * rRay
 		let V4 = float3(x: rRay.x * rCam.y + rCam.x * rRay.y, y: rCam.y * rRay.z + rRay.y * rCam.z, z: rCam.x * rRay.z + rRay.x * rCam.z)
 		let V5 = rRay
-		let V6 = rCam ⊗ rCam
+		let V6 = rCam * rCam
 		let V7 = 2 * float3(x: rCam.x * rCam.y, y: rCam.y * rCam.z, z: rCam.x * rCam.z)
 		let V8 = 2 * rCam;
 		

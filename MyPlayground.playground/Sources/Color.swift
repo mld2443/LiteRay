@@ -15,7 +15,7 @@ public struct HDRColor : Equatable, CustomStringConvertible {
 	let g: Float
 	let b: Float
 	
-	init(r: Float = 0.0, g: Float = 0.0, b: Float = 0.0) {
+	public init(r: Float = 0.0, g: Float = 0.0, b: Float = 0.0) {
 		self.r = r
 		self.g = g
 		self.b = b
@@ -70,7 +70,7 @@ public struct ColorData {
 	public let refrIndex: Float
 	public let reflectivity: Float
 	
-	init(ambient: HDRColor = HDRColor.blackColor(),
+	public init(ambient: HDRColor = HDRColor.blackColor(),
 	     diffuse: HDRColor = HDRColor.whiteColor(),
 	     offset: Float = 0.0,
 	     specular: HDRColor = HDRColor.blackColor(),
