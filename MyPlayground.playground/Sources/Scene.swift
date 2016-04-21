@@ -9,10 +9,10 @@
 import Cocoa
 
 public class Scene : NSObject, BooleanType {
-	var ambient: HDRColor
-	var refrIndex: Float
-	var lights = [Light]()
-	var shapes = [Shape]()
+	public var ambient: HDRColor
+	public var refrIndex: Float
+	public var lights = [Light]()
+	public var shapes = [Shape]()
 	
 	public init(ambient: HDRColor = HDRColor.blackColor(), refrIndex: Float = 1.0) {
 		self.ambient = ambient

@@ -17,10 +17,10 @@ import simd
 /// - [Wolfram MathWorld Quadratic Surface description](http://mathworld.wolfram.com/QuadraticSurface.html)
 /// - [Wikipedia page on Quadrics](https://en.wikipedia.org/wiki/Quadric)
 public struct Equation {
-	let A: Float, B: Float, C: Float
-	let D: Float, E: Float, F: Float
-	let G: Float, H: Float, I: Float
-	let J: Float
+	public let A: Float, B: Float, C: Float
+	public let D: Float, E: Float, F: Float
+	public let G: Float, H: Float, I: Float
+	public let J: Float
 	
 	public init(A: Float = 0.0, B: Float = 0.0, C: Float = 0.0, D: Float = 0.0, E: Float = 0.0, F: Float = 0.0, G: Float = 0.0, H: Float = 0.0, I: Float = 0.0, J: Float = 0.0) {
 		self.A = A; self.B = B; self.C = C
@@ -38,7 +38,7 @@ public struct Equation {
 public class Quadric : Shape {
 	public var colors: ColorData
 	public var position: float3
-	let equation: Equation
+	public let equation: Equation
 	
 	/// Initializes a quadric
 	/// - Parameters:

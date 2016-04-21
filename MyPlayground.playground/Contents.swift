@@ -14,7 +14,7 @@ extension NSImage {
 
 let scene = Scene(ambient: HDRColor(r: 0.1,g: 0.1,b: 0.1), refrIndex: 1.0)
 
-scene.add(PointLight(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), position: float3(0,0.01,0)))
+//scene.add(PointLight(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), position: float3(0,0.01,0)))
 scene.add(SpotLight(color: HDRColor(r: 0.8, g: 0.8, b: 0.8), position: float3(0,23.99,0), direction: float3(0,-1,0), angle: 65.0))
 
 let white = ColorData(ambient: HDRColor(r: 0.5,g: 0.5,b: 0.5), diffuse: HDRColor(r: 0.5,g: 0.5,b: 0.5), specular: HDRColor(r: 0.5,g: 0.5,b: 0.5), shininess: 3.0)
@@ -23,13 +23,50 @@ let green = ColorData(ambient: HDRColor(r: 0.0,g: 0.1,b: 0.0), diffuse: HDRColor
 
 let mirror = ColorData(reflectivity: 1.0)
 
-let glass = ColorData(opacity: 0.0, refrIndex: 1.25)
+let glass = ColorData(opacity: 0.0, refrIndex: 1.20)
 
 // spheres
-scene.add(Sphere(colors: glass, position: float3(-6,4,2), radius: 4)!) // right
-scene.add(Sphere(colors: mirror, position: float3(6,3,8), radius: 3)!) // left
-scene.add(Sphere(colors: mirror, position: float3(0,1,10), radius: 1)!) // center
-scene.add(Quadric(colors: glass, position: float3(0,12,5), equation: Equation(A: -1, B: 5, C: 5, D: 1, G: 0, J: 25)))
+//scene.add(Sphere(colors: glass, position: float3(-6,4,2), radius: 4)!) // right
+//scene.add(Sphere(colors: mirror, position: float3(6,3,8), radius: 3)!) // left
+//scene.add(Sphere(colors: mirror, position: float3(0,1,10), radius: 1)!) // center
+//scene.add(Quadric(colors: glass, position: float3(0,12,5), equation: Equation(A: -1, B: 5, C: 5, D: 1, G: 0, J: 25)))
+
+srand48(3)
+
+for i in 0...25 {
+	let radius = Float(drand48() * 3.0 + 1.0)
+	let xpos = Float(drand48()) * (24.0 - 2.0 * radius) - 12.0 + radius
+	let zpos = Float(drand48()) * (24.0 - 2.0 * radius) - 12.0 + radius
+	let position = float3(xpos, radius, zpos)
+	
+	var clear = true
+	
+	for shape in scene.shapes {
+		if shape is Quadric {
+			let quad = shape as! Quadric
+			
+			if distance(position, shape.position) < (sqrt(abs(quad.equation.J)) + radius) {
+				clear = false
+			}
+		}
+	}
+	
+	if clear {
+		let variance = drand48()
+		
+		if variance < 0.5 {
+			let color = HDRColor(r: Float(drand48()), g: Float(drand48()), b: Float(drand48()))
+			let surface = ColorData(ambient: color, diffuse: color, specular: color, shininess: 10)
+			scene.add(Sphere(colors: surface, position: position, radius: radius)!)
+		}
+		else if variance < 0.8 {
+			scene.add(Sphere(colors: mirror, position: position, radius: radius)!)
+		}
+		else {
+			scene.add(Sphere(colors: glass, position: position, radius: radius)!)
+		}
+	}
+}
 
 // walls
 scene.add(Plane(colors: white, position: float3(0,24,0), normal: float3(0,-1,0))) // ceiling
@@ -41,14 +78,14 @@ scene.add(Plane(colors: white, position: float3(0,0,0), normal: float3(0,1,0))) 
 
 let cam = Camera(position: float3(0,8,-10), lookDir: float3(0,0,1), FOV: 110.0, nearClip: 0.1, farClip: 1000.0)
 
-//let image1 = cam.capture(scene, size: NSSize(width: 600, height: 500), AntiAliasing: 1)
+let image1 = cam.capture(scene, size: NSSize(width: 800, height: 600), AntiAliasing: 12)
 
-for x in 0...10 {
-	let cam = Camera(position: float3(0,8,-10 + 0.2 * Float(x)), lookDir: float3(0,0,1), FOV: 110.0, nearClip: 0.1, farClip: 1000.0)
-
-	let image = cam.capture(scene, size: NSSize(width: 600, height: 500), AntiAliasing: 10)
-
-	if !image.savePNG("/Users/Matt/Pictures/snapshot\(x).png") {
-		print("error saving png file")
-	}
-}
+//for x in 0...10 {
+//	let cam = Camera(position: float3(0,8,-10 + 0.2 * Float(x)), lookDir: float3(0,0,1), FOV: 110.0, nearClip: 0.1, farClip: 1000.0)
+//
+//	let image = cam.capture(scene, size: NSSize(width: 600, height: 500), AntiAliasing: 10)
+//
+//	if !image.savePNG("/Users/Matt/Pictures/snapshot\(x).png") {
+//		print("error saving png file")
+//	}
+//}
