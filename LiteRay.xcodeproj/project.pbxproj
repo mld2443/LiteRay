@@ -45,7 +45,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C90A4D4E1CC0354600CC437E /* test1.scene */ = {isa = PBXFileReference; lastKnownFileType = text; path = test1.scene; sourceTree = "<group>"; };
 		C90A4D561CC06B4400CC437E /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		C90A4D581CC06EA100CC437E /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quaternion.swift; sourceTree = "<group>"; };
 		C919DCA01CBBE54C004CDA87 /* Ray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ray.swift; sourceTree = "<group>"; };
@@ -109,7 +108,6 @@
 		C9F10A681CBAD5CD00D97EAD = {
 			isa = PBXGroup;
 			children = (
-				C90A4D4E1CC0354600CC437E /* test1.scene */,
 				C9F10A731CBAD5CD00D97EAD /* LiteRay */,
 				C9F10A871CBAD5CD00D97EAD /* LiteRayTests */,
 				C9F10A721CBAD5CD00D97EAD /* Products */,
