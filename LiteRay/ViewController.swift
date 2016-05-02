@@ -24,33 +24,69 @@ class ViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		ImageView.image = camera.capture(scene, size: ImageView.bounds.size, AntiAliasing: 1)
+		ImageView.image = camera.capture(scene, size: ImageView.bounds.size, AntiAliasing: 10, depth: 10)
 	}
 	
 	private func loadReflectiveScene() {
-		scene.ambient = HDRColor(r: 0.05,g: 0.05,b: 0.05)
-		camera = Camera(position: float3(0,8,-10), lookDir: float3(0,0,1), FOV: 110.0, nearClip: 0.1, farClip: 1000.0)
+		let scene = Scene(ambient: HDRColor.blackColor(), shadingOffset: 0.0, refrIndex: 1.0)
 		
-		scene.add(SpotLight(color: HDRColor(r: 0.8, g: 0.8, b: 0.8), position: float3(0,23.99,0), direction: float3(0,-1,0), angle: 40.0))
+		scene.add(PointLight(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), position: float3(0,0.01,0)))
+		scene.add(SpotLight(color: HDRColor(r: 0.8, g: 0.8, b: 0.8), position: float3(0,23.99,0), direction: float3(0,-1,0), angle: 65.0))
 		
-		let white = ColorData(ambient: HDRColor(r: 0.05,g: 0.1,b: 0.12), diffuse: HDRColor(r: 0.5,g: 0.5,b: 0.5), specular: HDRColor(r: 0.5,g: 0.5,b: 0.5), shininess: 3.0)
-		let red = ColorData(ambient: HDRColor(r: 0.1,g: 0.05,b: 0.02), diffuse: HDRColor(r: 0.5,g: 0.2,b: 0.1), specular: HDRColor(r: 0.5,g: 0.2,b: 0.1), shininess: 20.0)
-		let green = ColorData(ambient: HDRColor(r: 0.0,g: 0.1,b: 0.0), diffuse: HDRColor(r: 0.0,g: 0.5,b: 0.0), offset: 0.5, specular: HDRColor(r: 0.0,g: 0.5,b: 0.0), shininess: 20.0)
-		
-		let mirror = ColorData(reflectivity: 1.0)
+		// Material surfaces
+		let red = Metallic(color: HDRColor.redColor())
+		let white = Lambertian(color: HDRColor.whiteColor(), shininess: 1.0)
+		let green = Lambertian(color: HDRColor.greenColor(), shininess: 1.0)
+		let blue = Lambertian(color: HDRColor.blueColor(), shininess: 20.0)
+		let gunmetal = Metallic(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), fuzz: 0.005)
 		
 		// spheres
-		scene.add(Sphere(colors: white, position: float3(-6,4,2), radius: 4)!) // right
-		scene.add(Sphere(colors: mirror, position: float3(6,3,8), radius: 3)!) // left
-		scene.add(Sphere(colors: mirror, position: float3(0,1,10), radius: 1)!) // center
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// floor
+		scene.add(Sphere(material: green, position: float3(0,3,10), radius: 3)!)			// green sphere
+		scene.add(Sphere(material: gunmetal, position: float3(100,70,110), radius: 70)!)	// in the back
+		scene.add(Sphere(material: blue, position: float3(-170,30,100), radius: 30)!)		// in the back
 		
-		// walls
-		scene.add(Plane(colors: white, position: float3(0,24,0), normal: float3(0,-1,0))) // ceiling
-		scene.add(Plane(colors: red, position: float3(12,0,0), normal: float3(-1,0,0))) // front
-		scene.add(Plane(colors: white, position: float3(0,0,12), normal: float3(0,0,-1))) // right
-		scene.add(Plane(colors: green, position: float3(-12,0,0), normal: float3(1,0,0))) // back
-		scene.add(Plane(colors: white, position: float3(0,0,-12), normal: float3(0,0,1))) // left
-		scene.add(Plane(colors: white, position: float3(0,0,0), normal: float3(0,1,0))) // floor
+		// interpolated values
+		let s0pos0 = float3(-4, 4, 20), s0pos1 = float3(-14, 4, 11)	// red
+		let s1pos0 = float3(-10,6,2), s1pos1 = float3(-5,6,2)		// clear
+		let s2pos0 = float3(19,18,19), s2pos1 = float3(19,18,19)	// mirror
+		let camAngle0 = Float(0.0), camAngle1 = 0.4 * Float(M_PI)	// camera angle
+		
+		
+		// get interpolated values
+		let regstep = Float(60) / Float(240)
+		let step = sqrt(regstep)
+		
+		
+		// camera values
+		let camPos = float3(0,8,-15)
+		let camLook = float3(0,8,-14)
+		
+		// interpolate
+		let mirror = Metallic(color: HDRColor(r: 0.6 + 0.4 * step, g: 1.0, b: 1.0), fuzz: 0.03)
+		let glass = Dielectric(color: HDRColor(r: 0.7 + 0.3 * step, g: 1.0, b: 0.8 + 0.2 * step), refrIndex: 1.2)
+		
+		let s0pos = step * s0pos1 + (1 - step) * s0pos0
+		let s1pos = step * s1pos1 + (1 - step) * s1pos0
+		let s2pos = step * s2pos1 + (1 - step) * s2pos0
+		
+		let camAngle = regstep * camAngle1 + (1 - regstep) * camAngle0
+		
+		// rotations
+		let mirAxis = Ray(o: s2pos, d: float3(-15,100,0))
+		
+		let newCamPos = mirAxis.rotateAbout(camPos, angle: camAngle)
+		let newCamLook = (mirAxis.rotateAbout(camLook, angle: camAngle) - newCamPos).unit
+		
+		// positioning
+		scene.shapes[0] = Sphere(material: red, position: s0pos, radius: 4)!				// red
+		scene.shapes[1] = Sphere(material: glass, position: s1pos, radius: 6)!				// clear
+		scene.shapes[2] = Sphere(material: mirror, position: s2pos, radius: 18)!	// mirror
+
+		camera = Camera(position: newCamPos, lookDir: newCamLook, FOV: 95.0)				// camera
 	}
 	
 	override var representedObject: AnyObject? {

@@ -10,27 +10,25 @@ import Cocoa
 import simd
 
 public struct Intersection {
-	let dist: Float
-	let point: float3
-	let norm: float3
-	let material: ColorData
+	public let dist: Float
+	public let point: float3
+	public let norm: float3
+	public let material: Material
+	
+	public init(dist: Float = 0.0, point: float3 = float3(), norm: float3 = float3(), material: Material = Lambertian()) {
+		self.dist = dist
+		self.point = point
+		self.norm = norm
+		self.material = material
+	}
 }
 
 
 public protocol Shape : class {
+	var material: Material { get set }
 	var position: float3 { get set }
-	var colors: ColorData { get set }
 	
-	func intersectRay(ray: Ray) -> Intersection?
-}
-
-public extension Shape {
-	public var ambient: HDRColor { return colors.ambient }
-	public var diffuse: HDRColor { return colors.diffuse }
-	public var offset: Float { return colors.offset }
-	public var specular: HDRColor { return colors.specular }
-	public var shininess: Float { return colors.shininess }
-	public var glow: HDRColor { return colors.glow }
-	public var opacity: Float { return colors.opacity }
-	public var reflectivity: Float { return colors.reflectivity }
+	var normTransform: ((Intersection) -> Intersection)? { get set }
+	
+	func intersectRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection?
 }

@@ -15,9 +15,9 @@ public class Camera : NSObject {
 	var lookDirection: float3
 	var upDirection: float3
 	var FOV: Float
-	var showNormal = true
+	var showNormal = false
 	
-	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:0,y:0,z:1), FOV: Float = 90.0, nearClip near:Float = 1.0, farClip far:Float = 1000.0, upDir:float3 = float3(x:0,y:1,z:0)) {
+	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:0,y:0,z:1), FOV: Float = 90.0, nearClip near:Float = 0.001, farClip far:Float = Float.infinity, upDir:float3 = float3(x:0,y:1,z:0)) {
 		position = pos
 		lookDirection = lookDir.unit
 		self.FOV = FOV
@@ -26,16 +26,9 @@ public class Camera : NSObject {
 		super.init()
 	}
 	
-	/// Preview the screen space, should disable
-	/// AntiAliasing and a few other techniques.
-	public func preview(scene: Scene, size: NSSize) -> NSImage {
-		return capture(scene, size: size, AntiAliasing: 1)
-		//return NSImage(named: "dogface")!
-	}
-	
 	/// Because of the way `imageFromRGB32Bitmap(pixels, size: size)`
 	/// has to work, capture draws the image flipped along the Y-axis.
-	public func capture(scene: Scene, size: NSSize, AntiAliasing: UInt) -> NSImage {
+	public func capture(scene: Scene, size: NSSize, AntiAliasing: UInt, depth: UInt = 5) -> NSImage {
 		// calculate the screen dimensions given the FOV
 		let screenWidth = tanf((FOV / 2.0) * (Float(M_PI) / 180.0))
 		let screenHeight = (Float(size.height) / Float(size.width)) * screenWidth
@@ -61,7 +54,7 @@ public class Camera : NSObject {
 			for x in 0..<Int(size.width) {
 				let pixelPosition = upperLeft + Float(x) * deltaX + Float(y) * deltaY
 				
-				pixels[x + y * Int(size.width)] = self.getPixel(scene, SSPP: pixelPosition, AntiAliasing: AntiAliasing, dims: (deltaX, deltaY))
+				pixels[x + y * Int(size.width)] = self.getPixel(scene, SSPP: pixelPosition, AntiAliasing: AntiAliasing, dims: (deltaX, deltaY), depth: depth)
 			}
 		}
 		
@@ -69,7 +62,7 @@ public class Camera : NSObject {
 	}
 	
 	/// Apply random sample AntiAliasing and begin the recursive raytracing process fro each sample
-	private func getPixel(scene: Scene, SSPP: float3, AntiAliasing: UInt, dims: (width: float3, height: float3)) -> HDRColor {
+	private func getPixel(scene: Scene, SSPP: float3, AntiAliasing: UInt, dims: (width: float3, height: float3), depth: UInt) -> HDRColor {
 		var pixel = HDRColor.blackColor()
 		
 		// collect samples of the scene for this current pixel
@@ -82,107 +75,30 @@ public class Camera : NSObject {
 			let subsample = SSPP + (dims.width * horiOffset) + (dims.height * vertOffset)
 			let ray = Ray(o: position, d: (subsample - position).unit)
 			
-			pixel = pixel + trace(ray, scene: scene, step: 0, maxDepth: 5)
+			pixel = pixel + trace(ray, scene: scene, step: 0, maxDepth: depth)
 		}
 		
+		// Color correction
+		pixel = pixel / Float(AntiAliasing)
+		pixel = HDRColor(r: sqrt(pixel.r), g: sqrt(pixel.g), b: sqrt(pixel.b))
+		
 		// return the normalized supersampled value
-		return pixel / Float(AntiAliasing);
+		return pixel
 	}
 	
 	private func trace(ray: Ray, scene: Scene, step: UInt, maxDepth: UInt) -> HDRColor {
-		var zValue = frustrum.far
-		var closest: Intersection? = nil
-		
-		// detect the closest shape
-		for s in scene.shapes {
-			if let intersect = s.intersectRay(ray) {
-				if (intersect.dist > frustrum.near && intersect.dist < zValue) {
-					zValue = intersect.dist
-					closest = intersect
-				}
+		if let intersect = scene.castRay(ray, frustrum: frustrum) {
+			var bounce = ray
+			var color = HDRColor()
+			
+			if step < maxDepth && intersect.material.scatter(ray, intersect: intersect, scene: scene, color: &color, bounce: &bounce) {
+				return color * trace(bounce, scene: scene, step: step + 1, maxDepth: maxDepth)
+			} else {
+				return HDRColor(r: 0, g: 0, b: 0)
 			}
 		}
 		
-		// Stop in case we find no collision
-		guard let intersect = closest else {
-			return HDRColor.blackColor()
-		}
-		
-		if showNormal {
-			let color = 0.5 * HDRColor(r: intersect.norm.x + 1.0, g: intersect.norm.y + 1.0, b: intersect.norm.z + 1.0)
-			
-			return color
-		}
-		
-		// retrieve the shape's colors
-		if step < maxDepth  && intersect.material.reflectivity > 0.0 {
-			let opaqueColor = (intersect.material.opacity - intersect.material.reflectivity) * getOpaqueColor(scene, at: intersect, from: -ray.d)
-			let reflectColor = intersect.material.reflectivity * getReflectedColor(scene, at: intersect, from: ray, step: step, maxDepth: maxDepth)
-			
-			return opaqueColor + reflectColor
-		}
-		else {
-			let opaqueColor = getOpaqueColor(scene, at: intersect, from: -ray.d)
-			
-			return opaqueColor
-		}
-	}
-	
-	private func getOpaqueColor(scene: Scene, at intersect: Intersection, from: float3) -> HDRColor {
-		// color independant of all other lighting conditions
-		let glow = intersect.material.glow
-		
-		// color dependant on the ambient light of the scene
-		let ambient = scene.ambient * intersect.material.ambient;
-		
-		var diffuse = HDRColor(), specular = HDRColor()
-		// iterate through all lights in the scene
-		for l  in scene.lights {
-			let directionToLight = l.normalToLight(intersect.point)
-			
-			// shadow check
-			if l.illuminated(intersect.point) && !obstructed(Ray(o: intersect.point, d: directionToLight), inScene: scene, from: l) {
-				let product = intersect.norm • directionToLight
-				let offset = (product + intersect.material.offset)/(1 + intersect.material.offset)
-				
-				// color from direct diffuse illumination
-				diffuse = diffuse + intersect.material.diffuse * l.color * max(offset, 0.0)
-				
-				if product > 0.0 {
-					let halfway = (from + directionToLight).unit
-					let specularvalue = intersect.norm • halfway
-					
-					// color from specular highlights
-					specular = specular + intersect.material.specular * l.color * pow(max(specularvalue, 0.0), intersect.material.shininess);
-				}
-			}
-		}
-		
-		return glow + ambient + diffuse + specular
-	}
-	
-	private func getReflectedColor(scene:Scene, at intersect: Intersection, from: Ray, step: UInt, maxDepth: UInt) -> HDRColor {
-		let normalRay = Ray(o: intersect.point, d: intersect.norm)
-		
-		return trace(from.reflect(normalRay), scene: scene, step: step + 1, maxDepth: maxDepth)
-	}
-	
-	private func obstructed(inRay: Ray, inScene: Scene, from: Light, tolerance: Float = 0.001) -> Bool {
-		// small tolerance to avoid hitting the surface we want to check for shadows
-		let ray = inRay * tolerance
-		
-		// first get the distance from the surface to the light
-		let distanceToLight = from.distance(ray.o);
-		
-		// then see if any shapes are closer than that
-		for s in inScene.shapes {
-			if let intersect = s.intersectRay(ray) {
-				if intersect.dist > 0.0 && intersect.dist < distanceToLight {
-					return true;
-				}
-			}
-		}
-		
-		return false
+		let t = 0.5 * ray.d.y + 1
+		return (1 - t) * HDRColor(r: 1.0, g: 1.0, b: 1.0) + t * HDRColor(r: 0.5, g: 0.7, b: 1.0)
 	}
 }

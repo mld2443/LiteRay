@@ -11,7 +11,7 @@ import simd
 
 /// Describes an equation of a 2nd degree polynomial of the form:
 ///
-///     Ax² + By² + Cz² + 2Dyz + 2Exz + 2Fxy + 2Gx + 2Hy + 2Iz + j = 0
+///     Ax² + By² + Cz² + 2Dyz + 2Exz + 2Fxy + 2Gx + 2Hy + 2Iz + J = 0
 ///
 /// - seealso:
 /// - [Wolfram MathWorld Quadratic Surface description](http://mathworld.wolfram.com/QuadraticSurface.html)
@@ -22,7 +22,7 @@ public struct Equation {
 	let G: Float, H: Float, I: Float
 	let J: Float
 	
-	init(A: Float = 0.0, B: Float = 0.0, C: Float = 0.0, D: Float = 0.0, E: Float = 0.0, F: Float = 0.0, G: Float = 0.0, H: Float = 0.0, I: Float = 0.0, J: Float = 0.0) {
+	public init(A: Float = 0.0, B: Float = 0.0, C: Float = 0.0, D: Float = 0.0, E: Float = 0.0, F: Float = 0.0, G: Float = 0.0, H: Float = 0.0, I: Float = 0.0, J: Float = 0.0) {
 		self.A = A; self.B = B; self.C = C
 		self.D = D; self.E = E; self.F = F
 		self.G = G; self.H = H; self.I = I
@@ -36,17 +36,19 @@ public struct Equation {
 
 /// Quadric shape, describes 2nd degree polynomial surfaces
 public class Quadric : Shape {
-	public var colors: ColorData
+	public var material: Material
 	public var position: float3
 	let equation: Equation
+	
+	public var normTransform: ((Intersection) -> Intersection)?
 	
 	/// Initializes a quadric
 	/// - Parameters:
 	///   - ColorData: Phong shading description
 	///   - float3: point of origin for the quadric
 	///   - Equation: equation of the quadric shape
-	public init(colors: ColorData, position: float3, equation: Equation) {
-		self.colors = colors
+	public init(material: Material, position: float3, equation: Equation) {
+		self.material = material
 		self.position = position
 		self.equation = equation
 	}
@@ -64,20 +66,20 @@ public class Quadric : Shape {
 	/// - Parameters:
 	///   - Ray: the ray upon which to test intersection
 	/// - Returns: the shortest distance along that ray to intersection or `nil` if there is no intersection
-	internal func calcIntersection(ray: Ray) -> Float? {
+	internal func calcIntersection(ray: Ray, frustrum: (near: Float, far: Float)) -> Float? {
 		// Calculate the positions of the camera and the ray relative to the quadric
-		let rCam = ray.o - position;
-		let rRay = ray.d;
+		let rCam = ray.o - position
+		let rRay = ray.d
 		
 		// Precalculate these values for our quadratic equation
-		let V1 = rRay ⊗ rRay
+		let V1 = rRay * rRay
 		let V2 = 2 * float3(x: rRay.x * rRay.y, y: rRay.y * rRay.z, z: rRay.x * rRay.z)
-		let V3 = rCam ⊗ rRay
+		let V3 = rCam * rRay
 		let V4 = float3(x: rRay.x * rCam.y + rCam.x * rRay.y, y: rCam.y * rRay.z + rRay.y * rCam.z, z: rCam.x * rRay.z + rRay.x * rCam.z)
 		let V5 = rRay
-		let V6 = rCam ⊗ rCam
+		let V6 = rCam * rCam
 		let V7 = 2 * float3(x: rCam.x * rCam.y, y: rCam.y * rCam.z, z: rCam.x * rCam.z)
-		let V8 = 2 * rCam;
+		let V8 = 2 * rCam
 		
 		// Calculate the quadratic coefficients
 		let A = equation.ABC • V1 + equation.DEF • V2
@@ -85,25 +87,29 @@ public class Quadric : Shape {
 		let C = equation.ABC • V6 + equation.DEF • V7 + equation.GHI • V8 + equation.J
 		
 		// Calculate the root value for our quadratic formula
-		var root = (B * B) - (A * C);
+		var root = (B * B) - (A * C)
 		
 		// No collision if the root is imaginary
 		if (root < 0) {
-			return nil;
+			return nil
 		}
 		
 		// Take its root if it's real
-		root = sqrt(root);
+		root = sqrt(root)
 		
 		// Calculate both intersections
-		let D1 = (-B + root)/A;
-		let D2 = (-B - root)/A;
+		let D1 = (-B - root)/A
+		let D2 = (-B + root)/A
 		
-		// Return closest intersection
-		if (D1 < D2) {
-			return D1;
+		// Return closest intersection thats in the frustrum
+		if D1 < frustrum.far && D1 > frustrum.near {
+			return D1
 		}
-		return D2;
+		else if D2 < frustrum.far && D2 > frustrum.near {
+			return D2
+		}
+		
+		return nil
 	}
 	
 	/// Calculates a ray intersection with the quadric
@@ -111,13 +117,19 @@ public class Quadric : Shape {
 	/// - Parameters:
 	///   - Ray: the ray upon which to test intersection
 	/// - Returns: the shortest distance along that ray to intersection or `nil` if there is no intersection
-	public func intersectRay(ray: Ray) -> Intersection? {
-		guard let depth = calcIntersection(ray) else {
+	public func intersectRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection? {
+		guard let depth = calcIntersection(ray, frustrum: frustrum) else {
 			return nil
 		}
 		
 		let point = (ray * depth).o
 		
-		return Intersection(dist: depth, point: point, norm: self.getNormal(at: point), material: colors)
+		let intersect = Intersection(dist: depth, point: point, norm: self.getNormal(at: point), material: self.material)
+		
+		if normTransform != nil {
+			return normTransform!(intersect)
+		}
+		
+		return intersect
 	}
 }
