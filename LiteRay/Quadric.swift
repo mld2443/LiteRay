@@ -44,9 +44,9 @@ public class Quadric : Shape {
 	
 	/// Initializes a quadric
 	/// - Parameters:
-	///   - ColorData: Phong shading description
-	///   - float3: point of origin for the quadric
-	///   - Equation: equation of the quadric shape
+	///   - material: material description, reflective, dielectric, etc.
+	///   - position: point of origin for the quadric
+	///   - equation: equation of the quadric shape
 	public init(material: Material, position: float3, equation: Equation) {
 		self.material = material
 		self.position = position

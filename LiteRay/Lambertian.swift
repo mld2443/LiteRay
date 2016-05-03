@@ -11,9 +11,9 @@ import simd
 
 public struct Lambertian: Material {
 	public var color: HDRColor
-	public var shininess: Float
+	public var shininess: Int
 	
-	public init(color: HDRColor = HDRColor(), shininess: Float = 1.0) {
+	public init(color: HDRColor = HDRColor(), shininess: Int = 0) {
 		self.color = color
 		self.shininess = shininess
 	}
@@ -22,8 +22,7 @@ public struct Lambertian: Material {
 		let target = intersect.point + intersect.norm + randomInUnitSphere()
 		
 		bounce = Ray(o: intersect.point, d: target - intersect.point)
-		//		color = scene.phongShading(color, position: intersect.point, normal: intersect.norm, from: incoming.d, shininess: shininess)
-		color = self.color
+		color = scene.phongShading(self.color, position: intersect.point, normal: intersect.norm, from: incoming.d, diffuse: true, specular: shininess)
 		
 		return true
 	}

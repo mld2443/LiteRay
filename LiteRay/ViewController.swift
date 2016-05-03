@@ -9,7 +9,7 @@
 import Cocoa
 import simd
 
-class ViewController: NSViewController {
+class ViewController: MetalViewController {
 	var scene = Scene()
 	var camera = Camera()
 	
@@ -24,26 +24,27 @@ class ViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		let start = NSDate()
+		
 		ImageView.image = camera.capture(scene, size: ImageView.bounds.size, AntiAliasing: 10, depth: 10)
+		
+		print("Time to run entire job: \(NSDate().timeIntervalSinceDate(start))")
 	}
 	
 	private func loadReflectiveScene() {
-		scene = Scene(ambient: HDRColor.blackColor(), shadingOffset: 0.0, refrIndex: 1.0)
+		scene = Scene(ambient: HDRColor.blackColor(), shadingOffset: 1.0, refrIndex: 1.0)
 		
 		scene.add(PointLight(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), position: float3(0,0.01,0)))
-		scene.add(SpotLight(color: HDRColor(r: 0.8, g: 0.8, b: 0.8), position: float3(0,23.99,0), direction: float3(0,-1,0), angle: 65.0))
+		scene.add(SpotLight(color: HDRColor(r: 0.8, g: 0.8, b: 0.8), position: float3(0,23.99,0), direction: float3(0,-1,0), angle: 30.0))
 		
 		// Material surfaces
 		let red = Metallic(color: HDRColor.redColor())
-		let white = Lambertian(color: HDRColor.whiteColor(), shininess: 1.0)
-		let green = Lambertian(color: HDRColor.greenColor(), shininess: 1.0)
-		let blue = Lambertian(color: HDRColor.blueColor(), shininess: 20.0)
+		let white = Lambertian(color: HDRColor.whiteColor(), shininess: 1)
+		let green = Lambertian(color: HDRColor.greenColor(), shininess: 1)
+		let blue = Lambertian(color: HDRColor.blueColor(), shininess: 20)
 		//let gunmetal = Metallic(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), fuzz: 0.005)
 		
 		// spheres
-		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
-		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
-		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
 		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// floor
 		scene.add(Sphere(material: green, position: float3(0,3,10), radius: 3)!)			// green sphere
 		scene.add(Sphere(material: blue, position: float3(-170,30,100), radius: 30)!)		// in the back right
@@ -57,7 +58,7 @@ class ViewController: NSViewController {
 		
 		
 		// get interpolated values
-		let regstep = Float(60) / Float(240)
+		let regstep = Float(0) / Float(240)
 		let step = sqrt(regstep)
 		
 		
@@ -79,9 +80,9 @@ class ViewController: NSViewController {
 		let newCamLook = (mirAxis.rotateAbout(camLook, angle: camAngle) - newCamPos).unit
 		
 		// positioning
-		scene.shapes[0] = Sphere(material: red, position: s0pos, radius: 4)!		// red
-		scene.shapes[1] = Sphere(material: glass, position: s1pos, radius: 6)!		// clear
-		scene.shapes[2] = Sphere(material: mirror, position: s2pos, radius: 18)!	// mirror
+		scene.add(Sphere(material: red, position: s0pos, radius: 4)!)		// red
+		scene.add(Sphere(material: glass, position: s1pos, radius: 6)!)		// clear
+		scene.add(Sphere(material: mirror, position: s2pos, radius: 18)!)	// mirror
 
 		camera = Camera(position: newCamPos, lookDir: newCamLook, FOV: 95.0)		// camera
 	}
