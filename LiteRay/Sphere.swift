@@ -11,8 +11,8 @@ import simd
 
 /// Sphere shape, implemented as a quadric
 public class Sphere : Quadric {
-	public init?(colors: ColorData, position: float3, radius: Float, refrIndex: Float = 1.0) {
-		super.init(colors: colors, position: position, equation: Equation(A: 1, B: 1, C: 1, J: -(radius * radius)), refrIndex: refrIndex)
+	public init?(material: Material, position: float3, radius: Float) {
+		super.init(material: material, position: position, equation: Equation(A: 1, B: 1, C: 1, J: -(radius * radius)))
 		
 		if radius <= 0 {
 			return nil
@@ -21,7 +21,14 @@ public class Sphere : Quadric {
 	
 	/// - note: works for any point (minus the center of the sphere)
 	/// - remark: this function overrides the quadric function as it is simpler
-	override public func getNormal(at point: float3) -> float3 {
-		return (point - position).unit
+	override internal func getNormal(at point: float3) -> float3 {
+		let actual = (point - position).unit
+		
+		//let u: Float = 0.5 + (atan2f(actual.z, actual.x) / 2 * Float(M_PI))
+		//let v: Float = 0.5 + (asinf(actual.y) / Float(M_PI))
+		
+		//let julia = juliaSet(float2(u,v), c: float2(-0.7,0.4))
+		
+		return actual
 	}
 }

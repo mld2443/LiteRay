@@ -18,94 +18,74 @@ class ViewController: NSViewController {
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		
-//		loadSimpleScene()
 		loadReflectiveScene()
-//		loadExampleScene()
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		ImageView.image = camera.preview(scene, size: ImageView.bounds.size)
-	}
-	
-	private func loadSimpleScene() {
-		scene.ambient = HDRColor(r: 0.05,g: 0.05,b: 0.05)
-		camera = Camera(position: float3(x: 0, y: 0, z: 0), lookDir: float3(x: 1, y: 0, z: 0), FOV: 90.0, nearClip: 0.2, farClip: 1000.0)
-		
-		scene.addLight(DirectLight(color: HDRColor.whiteColor(), direction: float3(x: 1, y: 1, z: 1)))
-		
-		let teal = ColorData(ambient: HDRColor(r: 0.05,g: 0.1,b: 0.12), diffuse: HDRColor(r: 0.2,g: 0.5,b: 0.6), specular: HDRColor(r: 0.2,g: 0.5,b: 0.6), shininess: 100.0)
-		let yellow = ColorData(ambient: HDRColor(r: 0.5,g: 0.5,b: 0.0), diffuse: HDRColor(r: 1.0,g: 1.0,b: 0.0), specular: HDRColor(r: 1.0,g: 1.0,b: 0.0), shininess: 5.0)
-		
-		scene.addShape(Sphere(colors: teal, position: float3(x: 10, y: 0, z: 0), radius: 3)!)
-		scene.addShape(Plane(colors: yellow, position: float3(x: 20,y: 0,z: 0), normal: float3(x: -1,y: 0,z: 0)))
+		ImageView.image = camera.capture(scene, size: ImageView.bounds.size, AntiAliasing: 10, depth: 10)
 	}
 	
 	private func loadReflectiveScene() {
-		scene.ambient = HDRColor(r: 0.05,g: 0.05,b: 0.05)
-		camera = Camera(position: float3(0,8,-10), lookDir: float3(0,0,1), FOV: 110.0, nearClip: 0.1, farClip: 1000.0)
+		scene = Scene(ambient: HDRColor.blackColor(), shadingOffset: 0.0, refrIndex: 1.0)
 		
-		scene.addLight(PointLight(color: HDRColor(r: 1.0, g: 1.0, b: 1.0), position: float3(0,23.99,0)))
+		scene.add(PointLight(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), position: float3(0,0.01,0)))
+		scene.add(SpotLight(color: HDRColor(r: 0.8, g: 0.8, b: 0.8), position: float3(0,23.99,0), direction: float3(0,-1,0), angle: 65.0))
 		
-		let white = ColorData(ambient: HDRColor(r: 0.05,g: 0.1,b: 0.12), diffuse: HDRColor(r: 0.5,g: 0.5,b: 0.5), specular: HDRColor(r: 0.5,g: 0.5,b: 0.5), shininess: 3.0)
-		let red = ColorData(ambient: HDRColor(r: 0.1,g: 0.05,b: 0.02), diffuse: HDRColor(r: 0.5,g: 0.2,b: 0.1), specular: HDRColor(r: 0.5,g: 0.2,b: 0.1), shininess: 20.0)
-		let green = ColorData(ambient: HDRColor(r: 0.0,g: 0.1,b: 0.0), diffuse: HDRColor(r: 0.0,g: 0.5,b: 0.0), offset: 0.5, specular: HDRColor(r: 0.0,g: 0.5,b: 0.0), shininess: 20.0)
-		
-		let mirror = ColorData(reflectivity: 1.0)
+		// Material surfaces
+		let red = Metallic(color: HDRColor.redColor())
+		let white = Lambertian(color: HDRColor.whiteColor(), shininess: 1.0)
+		let green = Lambertian(color: HDRColor.greenColor(), shininess: 1.0)
+		let blue = Lambertian(color: HDRColor.blueColor(), shininess: 20.0)
+		//let gunmetal = Metallic(color: HDRColor(r: 0.1, g: 0.1, b: 0.1), fuzz: 0.005)
 		
 		// spheres
-		scene.addShape(Sphere(colors: white, position: float3(-6,4,2), radius: 4)!) // right
-		scene.addShape(Sphere(colors: white, position: float3(6,3,8), radius: 3)!) // left
-		scene.addShape(Sphere(colors: mirror, position: float3(0,1,10), radius: 1)!) // center
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// overwritten
+		scene.add(Plane(material: white, position: float3(0,0,0), normal: float3(0,1,0)))	// floor
+		scene.add(Sphere(material: green, position: float3(0,3,10), radius: 3)!)			// green sphere
+		scene.add(Sphere(material: blue, position: float3(-170,30,100), radius: 30)!)		// in the back right
+		//scene.add(Sphere(material: gunmetal, position: float3(100,70,110), radius: 70)!)	// in the back left
 		
-		// walls
-		scene.addShape(Plane(colors: white, position: float3(0,24,0), normal: float3(0,-1,0))) // ceiling
-		scene.addShape(Plane(colors: red, position: float3(12,0,0), normal: float3(-1,0,0))) // front
-		scene.addShape(Plane(colors: white, position: float3(0,0,12), normal: float3(0,0,-1))) // right
-		scene.addShape(Plane(colors: green, position: float3(-12,0,0), normal: float3(1,0,0))) // back
-		scene.addShape(Plane(colors: white, position: float3(0,0,-12), normal: float3(0,0,1))) // left
-		scene.addShape(Plane(colors: white, position: float3(0,0,0), normal: float3(0,1,0))) // floor
+		// interpolated values
+		let s0pos0 = float3(-4, 4, 20), s0pos1 = float3(-14, 4, 11)	// red
+		let s1pos0 = float3(-10,6,2), s1pos1 = float3(-5,6,2)		// clear
+		let s2pos0 = float3(19,18,19), s2pos1 = float3(19,18,19)	// mirror
+		let camAngle0 = Float(0.0), camAngle1 = 0.4 * Float(M_PI)	// camera angle
+		
+		
+		// get interpolated values
+		let regstep = Float(60) / Float(240)
+		let step = sqrt(regstep)
+		
+		
+		// camera values
+		let camPos = float3(0,8,-15)
+		let camLook = float3(0,8,-14)
+		
+		// interpolate
+		let mirror = Metallic(color: HDRColor(r: 0.6 + 0.4 * step, g: 1.0, b: 1.0), fuzz: 0.03)
+		let glass = Dielectric(color: HDRColor(r: 0.7 + 0.3 * step, g: 1.0, b: 0.8 + 0.2 * step), refrIndex: 1.2)
+		let s0pos = step * s0pos1 + (1 - step) * s0pos0
+		let s1pos = step * s1pos1 + (1 - step) * s1pos0
+		let s2pos = step * s2pos1 + (1 - step) * s2pos0
+		let camAngle = regstep * camAngle1 + (1 - regstep) * camAngle0
+		
+		// rotations
+		let mirAxis = Ray(o: s2pos, d: float3(-15,100,0))
+		let newCamPos = mirAxis.rotateAbout(camPos, angle: camAngle)
+		let newCamLook = (mirAxis.rotateAbout(camLook, angle: camAngle) - newCamPos).unit
+		
+		// positioning
+		scene.shapes[0] = Sphere(material: red, position: s0pos, radius: 4)!		// red
+		scene.shapes[1] = Sphere(material: glass, position: s1pos, radius: 6)!		// clear
+		scene.shapes[2] = Sphere(material: mirror, position: s2pos, radius: 18)!	// mirror
+
+		camera = Camera(position: newCamPos, lookDir: newCamLook, FOV: 95.0)		// camera
 	}
 	
-	private func loadExampleScene() {
-		scene.ambient = HDRColor(r: 0.05,g: 0.05,b: 0.05)
-		camera = Camera(position: float3(x: 30, y: 10, z: -8), lookDir: float3(x: -60, y: -10, z: 8), FOV: 70.0, nearClip: 0.2, farClip: 10000.0)
-		
-		scene.addLight(SpotLight(color: HDRColor(r: 0.1,g: 0.1,b: 0.7), position: float3(x: 40,y: 25,z: 10),  direction: float3(x: -60,y: -12,z: 6), angle: 20.5))
-		scene.addLight(PointLight(color: HDRColor(r: 0.1,g: 0.4,b: 0.1), position: float3(x: 70,y: -40,z: 10)))
-		scene.addLight(DirectLight(color: HDRColor(r: 0.4,g: 0.1,b: 0.1), direction: float3(x: -20,y: 10,z: 50)))
-		
-		let yellow = ColorData(ambient: HDRColor(r: 0.5,g: 0.5,b: 0.1), diffuse: HDRColor(r: 1.0,g: 1.0,b: 0.0), offset: 0.5, specular: HDRColor(r: 1.0,g: 1.0,b: 0.0), shininess: 5.0)
-		let purple = ColorData(ambient: HDRColor(r: 0.04,g: 0.0,b: 0.06), diffuse: HDRColor(r: 0.2,g: 0.0,b: 0.3), offset: 0.5, specular: HDRColor(r: 0.6,g: 0.3,b: 0.8), shininess: 100.0)
-		let grey = ColorData(ambient: HDRColor(r: 0.3,g: 0.3,b: 0.4), diffuse: HDRColor(r: 0.9,g: 0.9,b: 1.0), offset: 0.5, specular: HDRColor(r: 0.9,g: 0.9,b: 1.0), shininess: 30.0, glow: HDRColor(r: 0.1,g: 0.1,b: 0.1))
-		let darkRed = ColorData(ambient: HDRColor(r: 0.1,g: 0.05,b: 0.02), diffuse: HDRColor(r: 0.5,g: 0.2,b: 0.1), offset: 0.5, specular: HDRColor(r: 0.5,g: 0.2,b: 0.1), shininess: 20.0)
-		let teal = ColorData(ambient: HDRColor(r: 0.05,g: 0.1,b: 0.12), diffuse: HDRColor(r: 0.2,g: 0.5,b: 0.6), offset: 0.5, specular: HDRColor(r: 0.2,g: 0.5,b: 0.6), shininess: 100.0)
-		let forestGreen = ColorData(ambient: HDRColor(r: 0.0,g: 0.1,b: 0.0), diffuse: HDRColor(r: 0.0,g: 0.5,b: 0.0), offset: 0.5, specular: HDRColor(r: 0.0,g: 0.5,b: 0.0), shininess: 20.0)
-		let limeGreen = ColorData(ambient: HDRColor(r: 0.08,g: 0.16,b: 0.0), diffuse: HDRColor(r: 0.4,g: 0.8,b: 0.0), offset: 0.5, specular: HDRColor(r: 0.4,g: 0.8,b: 0.0), shininess: 20.0)
-		let matteBlue = ColorData(ambient: HDRColor(r: 0.04,g: 0.02,b: 0.14), diffuse: HDRColor(r: 0.2,g: 0.1,b: 0.7), offset: 0.5, specular: HDRColor(r: 0.2,g: 0.1,b: 0.7), shininess: 15.0)
-		let orange = ColorData(ambient: HDRColor(r: 0.18,g: 0.08,b: 0.0), diffuse: HDRColor(r: 0.9,g: 0.4,b: 0.0), offset: 0.5, specular: HDRColor(r: 0.9,g: 0.4,b: 0.0), shininess: 20.0)
-		let babyBlue = ColorData(ambient: HDRColor(r: 0.16,g: 0.16,b: 0.16), diffuse: HDRColor(r: 0.5,g: 0.8,b: 0.8), offset: 0.5, specular: HDRColor(r: 0.5,g: 0.8,b: 0.8), shininess: 100.0)
-		let pearl = ColorData(ambient: HDRColor(r: 0.16,g: 0.16,b: 0.16), diffuse: HDRColor(r: 0.8,g: 0.8,b: 0.5), offset: 0.5, specular: HDRColor(r: 0.8,g: 0.8,b: 0.5), shininess: 100.0)
-		
-		scene.addShape(Quadric(colors: purple, position: float3(x: -20,y: 0,z: 35), equation: Equation(A: 5, B: -1, C: 5, J: -6)))
-		
-		scene.addShape(Plane(colors: yellow, position: float3(x: -60,y: 0,z: 0), normal: float3(x: 1,y: 0,z: 0)))
-		
-		scene.addShape(Cylinder(colors: purple, position: float3(x: -30,y: 0,z: 0), xz_radius: 5.0)!)
-		
-		scene.addShape(Sphere(colors: grey, position: float3(x: -30.0,y: 0.0,z: 0.0), radius: 11.0)!)
-		scene.addShape(Sphere(colors: darkRed, position: float3(x: -30.0,y: 7.0,z: 0.0), radius: 10.0)!)
-		scene.addShape(Sphere(colors: teal, position: float3(x: -30.0,y: -7.0,z: 0.0), radius: 10.0)!)
-		scene.addShape(Sphere(colors: forestGreen, position: float3(x: -30.0,y: 3.0,z: 5.0), radius: 10.0)!)
-		scene.addShape(Sphere(colors: limeGreen, position: float3(x: -30.0,y: -3.0,z: 5.0), radius: 10.0)!)
-		scene.addShape(Sphere(colors: matteBlue, position: float3(x: -30.0,y: -3.0,z: -5.0), radius: 10.0)!)
-		scene.addShape(Sphere(colors: orange, position: float3(x: -30.0,y: 3.0,z: -5.0), radius: 10.0)!)
-		
-		scene.addShape(Sphere(colors: babyBlue, position: float3(x: -40.0,y: 20.0,z: -30.0), radius: 10.0)!)
-		scene.addShape(Sphere(colors: pearl, position: float3(x: -40.0,y: -20.0,z: 30.0), radius: 10.0)!)
-	}
-
 	override var representedObject: AnyObject? {
 		didSet {
 		// Update the view, if already loaded.

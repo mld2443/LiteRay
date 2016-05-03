@@ -13,9 +13,10 @@ import simd
 ///
 /// The simplest of all shapes
 public class Plane : Shape {
-	public var colors: ColorData
+	public var material: Material
 	public var position: float3
-	public var refrIndex: Float
+	
+	public var normTransform: ((Intersection) -> Intersection)?
 	
 	private var normalVector: float3
 	private var EQconstant: Float
@@ -35,19 +36,34 @@ public class Plane : Shape {
 	///   - ColorData Phong shading description
 	///   - Vector3 position of any point on the surface
 	///   - Vector3 normal of the surface
-	public init(colors: ColorData, position: float3, normal: float3, refrIndex: Float = 1.0) {
-		self.colors = colors
+	public init(material: Material, position: float3, normal: float3) {
+		self.material = material
 		self.position = position
 		self.normalVector = normal.unit
 		self.EQconstant = normalVector • position
-		self.refrIndex = refrIndex
 	}
 	
-	public func getNormal(at point: float3) -> float3 {
-		return normalVector
-	}
-	
-	public func intersectRay(ray: Ray) -> Float {
-		return (EQconstant - normal • ray.o) / (normal • ray.d)
+	public func intersectRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection? {
+		let quotient = normal • ray.d
+		
+		if quotient == 0.0 {
+			return nil
+		}
+		
+		let dist = (EQconstant - normal • ray.o) / quotient
+		
+		if dist < frustrum.far && dist > frustrum.near {
+			let point = (ray * dist).o
+			
+			let intersect = Intersection(dist: dist, point: point, norm: normalVector, material: material)
+			
+			if normTransform != nil {
+				return normTransform!(intersect)
+			}
+			
+			return intersect
+		}
+		
+		return nil
 	}
 }

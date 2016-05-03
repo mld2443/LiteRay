@@ -15,7 +15,7 @@ public struct HDRColor : Equatable, CustomStringConvertible {
 	let g: Float
 	let b: Float
 	
-	init(r: Float = 0.0, g: Float = 0.0, b: Float = 0.0) {
+	public init(r: Float = 0.0, g: Float = 0.0, b: Float = 0.0) {
 		self.r = r
 		self.g = g
 		self.b = b
@@ -28,15 +28,15 @@ public struct HDRColor : Equatable, CustomStringConvertible {
 		return "\(red₁₆)\(green₁₆)\(blue₁₆)"
 	}
 	
-	static func whiteColor() -> HDRColor { return HDRColor(r: 1, g: 1, b: 1) }
-	static func blackColor() -> HDRColor { return HDRColor(r: 0, g: 0, b: 0) }
-	static func grayColor() -> HDRColor { return HDRColor(r: 0.5, g: 0.5, b: 0.5) }
-	static func redColor() -> HDRColor { return HDRColor(r: 1, g: 0, b: 0) }
-	static func greenColor() -> HDRColor { return HDRColor(r: 0, g: 1, b: 0) }
-	static func blueColor() -> HDRColor { return HDRColor(r: 0, g: 0, b: 1) }
-	static func yellowColor() -> HDRColor { return HDRColor(r: 1, g: 1, b: 0) }
-	static func magentaColor() -> HDRColor { return HDRColor(r: 1, g: 0, b: 1) }
-	static func cyanColor() -> HDRColor { return HDRColor(r: 0, g: 1, b: 1) }
+	public static func whiteColor() -> HDRColor { return HDRColor(r: 1, g: 1, b: 1) }
+	public static func blackColor() -> HDRColor { return HDRColor(r: 0, g: 0, b: 0) }
+	public static func grayColor() -> HDRColor { return HDRColor(r: 0.5, g: 0.5, b: 0.5) }
+	public static func redColor() -> HDRColor { return HDRColor(r: 1, g: 0, b: 0) }
+	public static func greenColor() -> HDRColor { return HDRColor(r: 0, g: 1, b: 0) }
+	public static func blueColor() -> HDRColor { return HDRColor(r: 0, g: 0, b: 1) }
+	public static func yellowColor() -> HDRColor { return HDRColor(r: 1, g: 1, b: 0) }
+	public static func magentaColor() -> HDRColor { return HDRColor(r: 1, g: 0, b: 1) }
+	public static func cyanColor() -> HDRColor { return HDRColor(r: 0, g: 1, b: 1) }
 }
 
 public func *(lhs: Float, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs * rhs.r, g: lhs * rhs.g, b: lhs * rhs.b) }
@@ -52,43 +52,6 @@ public func +(lhs: HDRColor, rhs: HDRColor) -> HDRColor { return HDRColor(r: lhs
 public func ==(lhs: HDRColor, rhs: HDRColor) -> Bool { return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b }
 
 
-/// A compound and descriptive color class that holds the following:
-/// - Ambient color
-/// - Diffuse color
-/// - Diffuse offset
-/// - Specular color
-/// - Shininess exponent
-/// - glow color
-public struct ColorData {
-	public var ambient: HDRColor
-	public var diffuse: HDRColor
-	public var offset: Float
-	public var specular: HDRColor
-	public var shininess: Float
-	public var glow: HDRColor
-	public var opacity: Float
-	public var reflectivity: Float
-	
-	init(ambient: HDRColor = HDRColor.blackColor(),
-	     diffuse: HDRColor = HDRColor.whiteColor(),
-	     offset: Float = 0.0,
-	     specular: HDRColor = HDRColor.blackColor(),
-	     shininess: Float = 0.0,
-	     glow: HDRColor = HDRColor.blackColor(),
-	     opacity: Float = 1.0,
-	     reflectivity: Float = 0.0) {
-		self.ambient = ambient
-		self.diffuse = diffuse
-		self.offset = offset
-		self.specular = specular
-		self.shininess = shininess
-		self.glow = glow
-		self.opacity = opacity
-		self.reflectivity = reflectivity
-	}
-}
-
-// FIXME: This function needs to be replaced, it's the cause of all the color problems
 public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {
 	let bitsPerComponent = 8
 	let bitsPerPixel = 32
@@ -126,4 +89,13 @@ public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {
 	)
 	
 	return NSImage(CGImage: cgim!, size: NSZeroSize)
+}
+
+extension NSImage {
+	public var imagePNGRepresentation: NSData {
+		return NSBitmapImageRep(data: TIFFRepresentation!)!.representationUsingType(.NSPNGFileType, properties: [:])!
+	}
+	public func savePNG(path:String) -> Bool {
+		return imagePNGRepresentation.writeToFile(path, atomically: true)
+	}
 }
