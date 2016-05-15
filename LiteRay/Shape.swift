@@ -30,5 +30,5 @@ public protocol Shape : class {
 	
 	var normTransform: ((Intersection) -> Intersection)? { get set }
 	
-	func intersectRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection?
+	func intersectRay(ray: Ray, frustrum: ClosedInterval<Float>) -> Intersection?
 }

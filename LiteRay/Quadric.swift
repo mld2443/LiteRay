@@ -44,9 +44,9 @@ public class Quadric : Shape {
 	
 	/// Initializes a quadric
 	/// - Parameters:
-	///   - material: material description, reflective, dielectric, etc.
-	///   - position: point of origin for the quadric
-	///   - equation: equation of the quadric shape
+	///   - ColorData: Phong shading description
+	///   - float3: point of origin for the quadric
+	///   - Equation: equation of the quadric shape
 	public init(material: Material, position: float3, equation: Equation) {
 		self.material = material
 		self.position = position
@@ -66,7 +66,7 @@ public class Quadric : Shape {
 	/// - Parameters:
 	///   - Ray: the ray upon which to test intersection
 	/// - Returns: the shortest distance along that ray to intersection or `nil` if there is no intersection
-	internal func calcIntersection(ray: Ray, frustrum: (near: Float, far: Float)) -> Float? {
+	internal func calcIntersection(ray: Ray, frustrum: ClosedInterval<Float>) -> Float? {
 		// Calculate the positions of the camera and the ray relative to the quadric
 		let rCam = ray.o - position
 		let rRay = ray.d
@@ -102,10 +102,10 @@ public class Quadric : Shape {
 		let D2 = (-B + root)/A
 		
 		// Return closest intersection thats in the frustrum
-		if D1 < frustrum.far && D1 > frustrum.near {
+		if frustrum ~= D1 {
 			return D1
 		}
-		else if D2 < frustrum.far && D2 > frustrum.near {
+		else if frustrum ~= D2 {
 			return D2
 		}
 		
@@ -117,7 +117,7 @@ public class Quadric : Shape {
 	/// - Parameters:
 	///   - Ray: the ray upon which to test intersection
 	/// - Returns: the shortest distance along that ray to intersection or `nil` if there is no intersection
-	public func intersectRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection? {
+	public func intersectRay(ray: Ray, frustrum: ClosedInterval<Float>) -> Intersection? {
 		guard let depth = calcIntersection(ray, frustrum: frustrum) else {
 			return nil
 		}

@@ -10,12 +10,14 @@ import Foundation
 import simd
 
 public struct Ray {
-	let o: float3
-	let d: float3
+	public let o: float3
+	public let d: float3
+	public let inv: float3
 	
 	public init(o: float3 = float3(), d: float3 = float3(x: 1, y: 0, z: 0)) {
 		self.o = o
 		self.d = d.unit
+		self.inv = float3(1,1,1) / self.d
 	}
 	
 	public func reflect(across: Ray, tolerance: Float = 0.000001) -> Ray {
@@ -56,7 +58,7 @@ public func *(dist: Float, ray: Ray) -> Ray { return Ray(o: ray.o + dist * ray.d
 
 extension float3: Equatable, CustomStringConvertible {
 	
-	public var description: String { return String(format: "(%.2f, %.2f, %.2f)", x, y, z) }
+	public var description: String { return String(format: "(%.3f, %.3f, %.3f)", x, y, z) }
 	
 	/// Absolute value of a Vector
 	/// - Returns: √(x² + y² + z²)

@@ -43,7 +43,7 @@ public class Plane : Shape {
 		self.EQconstant = normalVector • position
 	}
 	
-	public func intersectRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection? {
+	public func intersectRay(ray: Ray, frustrum: ClosedInterval<Float>) -> Intersection? {
 		let quotient = normal • ray.d
 		
 		if quotient == 0.0 {
@@ -52,18 +52,12 @@ public class Plane : Shape {
 		
 		let dist = (EQconstant - normal • ray.o) / quotient
 		
-		if dist < frustrum.far && dist > frustrum.near {
-			let point = (ray * dist).o
-			
-			let intersect = Intersection(dist: dist, point: point, norm: normalVector, material: material)
-			
-			if normTransform != nil {
-				return normTransform!(intersect)
-			}
-			
-			return intersect
+		if !(frustrum ~= dist) {
+			return nil
 		}
 		
-		return nil
+		let intersect = Intersection(dist: dist, point: (ray * dist).o, norm: normalVector, material: material)
+		
+		return normTransform?(intersect) ?? intersect
 	}
 }

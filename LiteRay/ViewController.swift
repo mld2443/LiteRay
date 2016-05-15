@@ -9,7 +9,7 @@
 import Cocoa
 import simd
 
-class ViewController: MetalViewController {
+class ViewController: NSViewController {
 	var scene = Scene()
 	var camera = Camera()
 	

@@ -16,6 +16,13 @@
 		C94910DF1CD7B73F0013C565 /* Lambertian.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94910DE1CD7B73F0013C565 /* Lambertian.swift */; };
 		C94910E11CD7B79E0013C565 /* Metallic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94910E01CD7B79E0013C565 /* Metallic.swift */; };
 		C94910E31CD7B7D40013C565 /* Dielectric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94910E21CD7B7D40013C565 /* Dielectric.swift */; };
+		C9BD0DF91CE82BAF006A1F4D /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */; };
+		C9BD0DFD1CE82BD5006A1F4D /* Halfedge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DFA1CE82BD5006A1F4D /* Halfedge.swift */; };
+		C9BD0DFE1CE82BD5006A1F4D /* Manifold.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DFB1CE82BD5006A1F4D /* Manifold.swift */; };
+		C9BD0DFF1CE82BD5006A1F4D /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DFC1CE82BD5006A1F4D /* Mesh.swift */; };
+		C9BD0E031CE82E23006A1F4D /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = C9BD0E021CE82E23006A1F4D /* cube.obj */; };
+		C9BD0E061CE82E4C006A1F4D /* knot.obj in Resources */ = {isa = PBXBuildFile; fileRef = C9BD0E051CE82E4C006A1F4D /* knot.obj */; };
+		C9BD0E081CE82F06006A1F4D /* tetra.obj in Resources */ = {isa = PBXBuildFile; fileRef = C9BD0E071CE82F06006A1F4D /* tetra.obj */; };
 		C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */; };
 		C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A761CBAD5CD00D97EAD /* ViewController.swift */; };
 		C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A781CBAD5CD00D97EAD /* Document.swift */; };
@@ -56,6 +63,13 @@
 		C94910DE1CD7B73F0013C565 /* Lambertian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lambertian.swift; sourceTree = "<group>"; };
 		C94910E01CD7B79E0013C565 /* Metallic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metallic.swift; sourceTree = "<group>"; };
 		C94910E21CD7B7D40013C565 /* Dielectric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dielectric.swift; sourceTree = "<group>"; };
+		C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
+		C9BD0DFA1CE82BD5006A1F4D /* Halfedge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Halfedge.swift; sourceTree = "<group>"; };
+		C9BD0DFB1CE82BD5006A1F4D /* Manifold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manifold.swift; sourceTree = "<group>"; };
+		C9BD0DFC1CE82BD5006A1F4D /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mesh.swift; sourceTree = "<group>"; };
+		C9BD0E021CE82E23006A1F4D /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		C9BD0E051CE82E4C006A1F4D /* knot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = knot.obj; sourceTree = "<group>"; };
+		C9BD0E071CE82F06006A1F4D /* tetra.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tetra.obj; sourceTree = "<group>"; };
 		C9F10A711CBAD5CD00D97EAD /* LiteRay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteRay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9F10A761CBAD5CD00D97EAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +131,16 @@
 			name = Materials;
 			sourceTree = "<group>";
 		};
+		C9BD0E041CE82E2A006A1F4D /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				C9BD0E071CE82F06006A1F4D /* tetra.obj */,
+				C9BD0E021CE82E23006A1F4D /* cube.obj */,
+				C9BD0E051CE82E4C006A1F4D /* knot.obj */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
 		C9F10A681CBAD5CD00D97EAD = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				C9FEA8631CC19BEF007816CB /* Containers */,
+				C9BD0E041CE82E2A006A1F4D /* Objects */,
 				C94910DB1CD7B6F30013C565 /* Materials */,
 				C9F10A941CBAD60300D97EAD /* Lights */,
 				C9F10A931CBAD5FA00D97EAD /* Shapes */,
@@ -148,6 +173,7 @@
 				C9F10A781CBAD5CD00D97EAD /* Document.swift */,
 				C915F59B1CD817320058DB2F /* MetalViewController.swift */,
 				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
+				C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */,
 				C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */,
 				C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */,
 				C9F10A7F1CBAD5CD00D97EAD /* Info.plist */,
@@ -167,6 +193,7 @@
 		C9F10A931CBAD5FA00D97EAD /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
+				C9BD0DFC1CE82BD5006A1F4D /* Mesh.swift */,
 				C9F10A9F1CBAD67A00D97EAD /* Cylinder.swift */,
 				C9F10AA01CBAD67A00D97EAD /* Plane.swift */,
 				C9F10AA21CBAD67A00D97EAD /* Shape.swift */,
@@ -193,6 +220,8 @@
 			children = (
 				C9F10A961CBAD66600D97EAD /* Color.swift */,
 				C919DCA01CBBE54C004CDA87 /* Ray.swift */,
+				C9BD0DFA1CE82BD5006A1F4D /* Halfedge.swift */,
+				C9BD0DFB1CE82BD5006A1F4D /* Manifold.swift */,
 				C90A4D581CC06EA100CC437E /* Quaternion.swift */,
 				C9F10A991CBAD66600D97EAD /* Scene.swift */,
 			);
@@ -281,6 +310,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BD0E031CE82E23006A1F4D /* cube.obj in Resources */,
+				C9BD0E061CE82E4C006A1F4D /* knot.obj in Resources */,
+				C9BD0E081CE82F06006A1F4D /* tetra.obj in Resources */,
 				C9F10A7B1CBAD5CD00D97EAD /* Assets.xcassets in Resources */,
 				C9F10A7E1CBAD5CD00D97EAD /* Main.storyboard in Resources */,
 			);
@@ -310,6 +342,7 @@
 				C915F59A1CD814C00058DB2F /* Trace.metal in Sources */,
 				C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */,
 				C9F10AB01CBAD68800D97EAD /* SpotLight.swift in Sources */,
+				C9BD0DFE1CE82BD5006A1F4D /* Manifold.swift in Sources */,
 				C9F10AAE1CBAD68800D97EAD /* Light.swift in Sources */,
 				C9F10A9E1CBAD66600D97EAD /* Scene.swift in Sources */,
 				C94910E31CD7B7D40013C565 /* Dielectric.swift in Sources */,
@@ -319,7 +352,10 @@
 				C9F10AA71CBAD67A00D97EAD /* Shape.swift in Sources */,
 				C9F10AA81CBAD67A00D97EAD /* Sphere.swift in Sources */,
 				C9F10AA61CBAD67A00D97EAD /* Quadric.swift in Sources */,
+				C9BD0DFD1CE82BD5006A1F4D /* Halfedge.swift in Sources */,
 				C94910E11CD7B79E0013C565 /* Metallic.swift in Sources */,
+				C9BD0DFF1CE82BD5006A1F4D /* Mesh.swift in Sources */,
+				C9BD0DF91CE82BAF006A1F4D /* StreamReader.swift in Sources */,
 				C9F10AAF1CBAD68800D97EAD /* PointLight.swift in Sources */,
 				C9F10AA41CBAD67A00D97EAD /* Cylinder.swift in Sources */,
 				C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */,

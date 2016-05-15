@@ -20,6 +20,7 @@ public class Scene : NSObject {
 	
 	public var planes = [Plane]()
 	public var quadrics = [Quadric]()
+	public var meshes = [Mesh]()
 	
 	public init(ambient: HDRColor = HDRColor.blackColor(), shadingOffset: Float = 0.0, refrIndex: Float = 1.0) {
 		self.ambient = ambient
@@ -47,20 +48,27 @@ public class Scene : NSObject {
 			planes.append(newShape as! Plane)
 		case is Quadric:
 			quadrics.append(newShape as! Quadric)
+		case is Mesh:
+			meshes.append(newShape as! Mesh)
 		default:
 			break
 		}
 	}
 	
-	public func castRay(ray: Ray, frustrum: (near: Float, far: Float)) -> Intersection? {
+	public func castRay(ray: Ray, frustrum: ClosedInterval<Float>) -> Intersection? {
 		var closest: Intersection?
 		for plane in planes {
-			if let intersect = plane.intersectRay(ray, frustrum: (frustrum.near, closest?.dist ?? frustrum.far)) {
+			if let intersect = plane.intersectRay(ray, frustrum: frustrum.start...(closest?.dist ?? frustrum.end)) {
 				closest = intersect
 			}
 		}
 		for quadric in quadrics {
-			if let intersect = quadric.intersectRay(ray, frustrum: (frustrum.near, closest?.dist ?? frustrum.far)) {
+			if let intersect = quadric.intersectRay(ray, frustrum: frustrum.start...(closest?.dist ?? frustrum.end)) {
+				closest = intersect
+			}
+		}
+		for mesh in meshes {
+			if let intersect = mesh.intersectRay(ray, frustrum: frustrum.start...(closest?.dist ?? frustrum.end)) {
 				closest = intersect
 			}
 		}

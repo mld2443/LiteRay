@@ -11,18 +11,18 @@ import simd
 
 public class Camera : NSObject {
 	public var position: float3
-	var frustrum: (near: Float, far: Float)
+	var frustrum: ClosedInterval<Float>
 	var lookDirection: float3
 	var upDirection: float3
 	var FOV: Float
 	var showNormal = false
 	
-	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:0,y:0,z:1), FOV: Float = 90.0, nearClip near:Float = 0.001, farClip far:Float = Float.infinity, upDir:float3 = float3(x:0,y:1,z:0)) {
-		position = pos
-		lookDirection = lookDir.unit
+	public init(position pos:float3 = float3(), lookDir:float3 = float3(x:0,y:0,z:1), FOV: Float = 90.0, frustrum: ClosedInterval<Float> = 0.001...Float.infinity, upDir:float3 = float3(x:0,y:1,z:0)) {
+		self.position = pos
+		self.lookDirection = lookDir.unit
 		self.FOV = FOV
-		frustrum = (near, far)
-		upDirection = upDir.unit
+		self.frustrum = frustrum
+		self.upDirection = upDir.unit
 		super.init()
 	}
 	
