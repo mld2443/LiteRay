@@ -1,5 +1,5 @@
 //
-//  Utility.swift
+//  Extensions.swift
 //  LiteRay
 //
 //  Created by Matthew Dillard on 5/15/16.

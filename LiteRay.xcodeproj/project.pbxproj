@@ -23,7 +23,7 @@
 		C9BD0E031CE82E23006A1F4D /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = C9BD0E021CE82E23006A1F4D /* cube.obj */; };
 		C9BD0E061CE82E4C006A1F4D /* knot.obj in Resources */ = {isa = PBXBuildFile; fileRef = C9BD0E051CE82E4C006A1F4D /* knot.obj */; };
 		C9BD0E081CE82F06006A1F4D /* tetra.obj in Resources */ = {isa = PBXBuildFile; fileRef = C9BD0E071CE82F06006A1F4D /* tetra.obj */; };
-		C9BD0E0B1CE9062D006A1F4D /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0E0A1CE9062D006A1F4D /* Utility.swift */; };
+		C9BD0E0B1CE9062D006A1F4D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0E0A1CE9062D006A1F4D /* Extensions.swift */; };
 		C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */; };
 		C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A761CBAD5CD00D97EAD /* ViewController.swift */; };
 		C9F10A791CBAD5CD00D97EAD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F10A781CBAD5CD00D97EAD /* Document.swift */; };
@@ -71,7 +71,7 @@
 		C9BD0E021CE82E23006A1F4D /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		C9BD0E051CE82E4C006A1F4D /* knot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = knot.obj; sourceTree = "<group>"; };
 		C9BD0E071CE82F06006A1F4D /* tetra.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tetra.obj; sourceTree = "<group>"; };
-		C9BD0E0A1CE9062D006A1F4D /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		C9BD0E0A1CE9062D006A1F4D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C9F10A711CBAD5CD00D97EAD /* LiteRay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteRay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9F10A741CBAD5CD00D97EAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9F10A761CBAD5CD00D97EAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		C9F10A731CBAD5CD00D97EAD /* LiteRay */ = {
 			isa = PBXGroup;
 			children = (
-				C9FEA8631CC19BEF007816CB /* Containers */,
+				C9FEA8631CC19BEF007816CB /* Utility */,
 				C9BD0E041CE82E2A006A1F4D /* Objects */,
 				C94910DB1CD7B6F30013C565 /* Materials */,
 				C9F10A941CBAD60300D97EAD /* Lights */,
@@ -175,8 +175,6 @@
 				C9F10A781CBAD5CD00D97EAD /* Document.swift */,
 				C915F59B1CD817320058DB2F /* MetalViewController.swift */,
 				C9F10A761CBAD5CD00D97EAD /* ViewController.swift */,
-				C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */,
-				C9BD0E0A1CE9062D006A1F4D /* Utility.swift */,
 				C9F10A7A1CBAD5CD00D97EAD /* Assets.xcassets */,
 				C9F10A7C1CBAD5CD00D97EAD /* Main.storyboard */,
 				C9F10A7F1CBAD5CD00D97EAD /* Info.plist */,
@@ -218,9 +216,11 @@
 			name = Lights;
 			sourceTree = "<group>";
 		};
-		C9FEA8631CC19BEF007816CB /* Containers */ = {
+		C9FEA8631CC19BEF007816CB /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */,
+				C9BD0E0A1CE9062D006A1F4D /* Extensions.swift */,
 				C919DCA01CBBE54C004CDA87 /* Ray.swift */,
 				C9F10A961CBAD66600D97EAD /* Color.swift */,
 				C9BD0DFA1CE82BD5006A1F4D /* Halfedge.swift */,
@@ -228,7 +228,7 @@
 				C90A4D581CC06EA100CC437E /* Quaternion.swift */,
 				C9F10A991CBAD66600D97EAD /* Scene.swift */,
 			);
-			name = Containers;
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,7 +343,7 @@
 				C9F10AA51CBAD67A00D97EAD /* Plane.swift in Sources */,
 				C9F10A771CBAD5CD00D97EAD /* ViewController.swift in Sources */,
 				C915F59A1CD814C00058DB2F /* Trace.metal in Sources */,
-				C9BD0E0B1CE9062D006A1F4D /* Utility.swift in Sources */,
+				C9BD0E0B1CE9062D006A1F4D /* Extensions.swift in Sources */,
 				C9F10A751CBAD5CD00D97EAD /* AppDelegate.swift in Sources */,
 				C9F10AB01CBAD68800D97EAD /* SpotLight.swift in Sources */,
 				C9BD0DFE1CE82BD5006A1F4D /* Manifold.swift in Sources */,
