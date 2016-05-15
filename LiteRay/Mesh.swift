@@ -22,11 +22,11 @@ public class Mesh : Shape {
 	///   - ColorData: Phong shading description
 	///   - float3: point of origin for the quadric
 	///   - Equation: equation of the quadric shape
-	public init?(material: Material, position: float3, path: String) {
+	public init?(material: Material, position: float3, path: String, scale: Float = 1.0) {
 		self.material = material
 		self.position = position
 		
-		let manifold = Manifold(path: path)
+		let manifold = Manifold(path: path, scale: scale)
 		if manifold == nil {
 			return nil
 		}

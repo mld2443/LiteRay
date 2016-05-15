@@ -90,12 +90,3 @@ public func imageFromRGB32Bitmap(pixels:[HDRColor], size: NSSize) -> NSImage {
 	
 	return NSImage(CGImage: cgim!, size: NSZeroSize)
 }
-
-extension NSImage {
-	public var imagePNGRepresentation: NSData {
-		return NSBitmapImageRep(data: TIFFRepresentation!)!.representationUsingType(.NSPNGFileType, properties: [:])!
-	}
-	public func savePNG(path:String) -> Bool {
-		return imagePNGRepresentation.writeToFile(path, atomically: true)
-	}
-}

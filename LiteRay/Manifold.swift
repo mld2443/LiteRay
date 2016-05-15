@@ -8,6 +8,10 @@ public class Manifold {
 	internal var halfedges = [Halfedge]()
 	internal var AABB = (min: float3(), max: float3())
 	
+	lazy var center: float3 = {
+		return mix(self.AABB.min, self.AABB.max, t: 0.5)
+	}()
+	
 	internal var edgeHash = [Int: Edge]()
 	
 	public lazy var valid: Bool = {
@@ -66,26 +70,23 @@ public class Manifold {
 		return true
 	}()
 	
-	public init?(path: String, verbose: Bool = false) {
+	public init?(path: String, scale: Float = 1.0) {
 		let stream = StreamReader(path: path)
 		
 		// iterate through the file and add in vertices and faces
 		while let line = stream?.nextLine() {
 			// check if the line is a comment
 			if line.hasPrefix("#") {
-				if verbose {
-					print(line)
-				}
 			}
 				
-				// Check for vertices
+			// Check for vertices
 			else if line.hasPrefix("v ") {
-				let start = line.startIndex.advancedBy(2), end = line.endIndex.predecessor().predecessor()
-				let values = line[start...end].componentsSeparatedByString(" ").map({ Float($0)! })
+				let start = line.startIndex.advancedBy(1), end = line.endIndex
+				let values = line[start..<end].trim.componentsSeparatedByString(" ").map({ Float($0)! })
 				
 				assert(values.count == 3)
 				
-				let x = values[0], y = values[1], z = values[2]
+				let x = values[0] * scale, y = values[1] * scale, z = values[2] * scale
 				
 				if x < AABB.min.x {
 					AABB.min.x = x
@@ -108,11 +109,11 @@ public class Manifold {
 				vertices.append(Vertex(pos: float3(x, y, z)))
 			}
 				
-				// Check for faces
+			// Check for faces
 			else if line.hasPrefix("f ") {
 				var vertexList = [Vertex]()
-				let start = line.startIndex.advancedBy(2), end = line.endIndex.predecessor().predecessor()
-				let indices = line[start...end].componentsSeparatedByString(" ").map({ Int($0)! - 1 })
+				let start = line.startIndex.advancedBy(1), end = line.endIndex
+				let indices = line[start..<end].trim.componentsSeparatedByString(" ").map({ Int($0)! - 1 })
 				
 				for index in indices {
 					vertexList.append(vertices[index])
@@ -126,6 +127,12 @@ public class Manifold {
 		
 		if stream == nil {
 			return nil
+		}
+	}
+	
+	public func centerAABB() {
+		for vertex in vertices {
+			vertex.pos = vertex.pos - center
 		}
 	}
 	
