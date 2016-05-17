@@ -16,6 +16,7 @@
 		C94910DF1CD7B73F0013C565 /* Lambertian.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94910DE1CD7B73F0013C565 /* Lambertian.swift */; };
 		C94910E11CD7B79E0013C565 /* Metallic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94910E01CD7B79E0013C565 /* Metallic.swift */; };
 		C94910E31CD7B7D40013C565 /* Dielectric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94910E21CD7B7D40013C565 /* Dielectric.swift */; };
+		C95B273A1CEB9CDE006F0158 /* gourd.obj in Resources */ = {isa = PBXBuildFile; fileRef = C95B27391CEB9CDE006F0158 /* gourd.obj */; };
 		C9BD0DF91CE82BAF006A1F4D /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */; };
 		C9BD0DFD1CE82BD5006A1F4D /* Halfedge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DFA1CE82BD5006A1F4D /* Halfedge.swift */; };
 		C9BD0DFE1CE82BD5006A1F4D /* Manifold.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BD0DFB1CE82BD5006A1F4D /* Manifold.swift */; };
@@ -64,6 +65,7 @@
 		C94910DE1CD7B73F0013C565 /* Lambertian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lambertian.swift; sourceTree = "<group>"; };
 		C94910E01CD7B79E0013C565 /* Metallic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metallic.swift; sourceTree = "<group>"; };
 		C94910E21CD7B7D40013C565 /* Dielectric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dielectric.swift; sourceTree = "<group>"; };
+		C95B27391CEB9CDE006F0158 /* gourd.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gourd.obj; sourceTree = "<group>"; };
 		C9BD0DF81CE82BAF006A1F4D /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		C9BD0DFA1CE82BD5006A1F4D /* Halfedge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Halfedge.swift; sourceTree = "<group>"; };
 		C9BD0DFB1CE82BD5006A1F4D /* Manifold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manifold.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		C9BD0E041CE82E2A006A1F4D /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				C95B27391CEB9CDE006F0158 /* gourd.obj */,
 				C9BD0E071CE82F06006A1F4D /* tetra.obj */,
 				C9BD0E021CE82E23006A1F4D /* cube.obj */,
 				C9BD0E051CE82E4C006A1F4D /* knot.obj */,
@@ -316,6 +319,7 @@
 				C9BD0E031CE82E23006A1F4D /* cube.obj in Resources */,
 				C9BD0E061CE82E4C006A1F4D /* knot.obj in Resources */,
 				C9BD0E081CE82F06006A1F4D /* tetra.obj in Resources */,
+				C95B273A1CEB9CDE006F0158 /* gourd.obj in Resources */,
 				C9F10A7B1CBAD5CD00D97EAD /* Assets.xcassets in Resources */,
 				C9F10A7E1CBAD5CD00D97EAD /* Main.storyboard in Resources */,
 			);
